@@ -1,0 +1,7 @@
+{
+  "require": {
+    "php": ">=7.0",
+    "simplito/elliptic-php": "1.0.6",
+    "ext-curl": "*"
+  }
+}
