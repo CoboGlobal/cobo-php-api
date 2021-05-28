@@ -1,5 +1,6 @@
 <?php
 
+use BI\BigInteger;
 use Elliptic\EC;
 
 require __DIR__ . "/vendor/autoload.php";
@@ -11,7 +12,7 @@ class CoboApiClient
     private $coboPub;
     private $host;
 
-    public function __construct($apiSigner, $apiKey, $coboPub, $host)
+    public function __construct(ApiSigner $apiSigner, string $apiKey, string $coboPub, string $host)
     {
         $this->apiKey = $apiKey;
         $this->apiSigner = $apiSigner;
@@ -19,7 +20,7 @@ class CoboApiClient
         $this->host = $host;
     }
 
-    function verifyEcdsa($message, $timestamp, $signature)
+    function verifyEcdsa(string $message, string $timestamp, string $signature)
     {
         $message = hash("sha256", hash("sha256", "{$message}|{$timestamp}", True), True);
         $ec = new EC('secp256k1');
@@ -27,7 +28,7 @@ class CoboApiClient
         return $key->verify(bin2hex($message), $signature);
     }
 
-    private function sortData($data): string
+    private function sortData(array $data): string
     {
         ksort($data);
         $result = [];
@@ -40,7 +41,7 @@ class CoboApiClient
     /**
      * @throws Exception
      */
-    function request($method, $path, $data)
+    function request(string $method, string $path, array $data)
     {
         $ch = curl_init();
         $sorted_data = $this->sortData($data);
@@ -71,7 +72,8 @@ class CoboApiClient
             throw new Exception("signature verify fail");
         }
         curl_close($ch);
-        return $body;
+        echo $body;
+        return json_decode($body);
     }
 
     /***
@@ -79,7 +81,7 @@ class CoboApiClient
      * @return mixed|string
      * @throws Exception
      */
-    function checkAccountDetails()
+    function getAccountInfo()
     {
         return $this->request("GET", "/v1/custody/org_info/", []);
     }
@@ -181,11 +183,11 @@ class CoboApiClient
      * Check Loop Address Details
      * @param string $coin
      * @param string $address
-     * @param string $memo
+     * @param string|null $memo
      * @return mixed|string
      * @throws Exception
      */
-    function checkLoopAddressDetails(string $coin, string $address, string $memo)
+    function checkLoopAddressDetails(string $coin, string $address, string $memo=null)
     {
         $params = [
             "coin" => $coin,
@@ -285,18 +287,18 @@ class CoboApiClient
      * @param string $coin
      * @param string $requestId
      * @param string $address
-     * @param string $amount
+     * @param BigInteger $amount
      * @param array $options
      * @return mixed|string
      * @throws Exception
      */
-    function withdraw(string $coin, string $requestId, string $address, string $amount, array $options = [])
+    function withdraw(string $coin, string $requestId, string $address, BigInteger $amount, array $options = [])
     {
         $params = array_merge([
             "coin" => $coin,
             "request_id" => $requestId,
             "address" => $address,
-            "amount" => $amount,
+            "amount" => $amount->toString(),
         ], $options);
         return $this->request("POST", "/v1/custody/new_withdraw_request/", $params);
     }
@@ -307,62 +309,75 @@ class CoboApiClient
      * @return mixed|string
      * @throws Exception
      */
-    function getWithdrawInfo(string  $requestId) {
-        return $this->request("GET", "/v1/custody/new_withdraw_request/", ["request_id"=>$requestId]);
+    function getWithdrawInfo(string $requestId)
+    {
+        return $this->request("GET", "/v1/custody/withdraw_info_by_request_id/", ["request_id" => $requestId]);
     }
 
     /***
      * Get a Staking Product Details
      * @param string $productId
      * @param string $lang
+     * @return mixed
      * @throws Exception
      */
-    function getStakingProductDetails(string $productId, string $lang="en") {
+    function getStakingProductDetails(string $productId, string $lang = "en")
+    {
         $params = [
-            "product_id"=>$productId,
-            "language"=>$lang
+            "product_id" => $productId,
+            "language" => $lang
         ];
-        $this->request("GET","/v1/custody/staking_product/",$params);
+       return $this->request("GET", "/v1/custody/staking_product/", $params);
     }
 
     /***
      * Get All Staking Product List
-     * @param array $params
-     * @return mixed|string
+     * @param string|null $coin
+     * @param string $lang
+     * @return mixed
      * @throws Exception
      */
-    function getStakingProductList(array $params=[]) {
-        return $this->request("GET","/v1/custody/staking_products/",$params);
+    function getStakingProductList(string $coin = null, string $lang = "en")
+    {
+        $params = [
+            "language"=>$lang,
+        ];
+        if ($coin) {
+            $params = array_merge($params,["coin"=>$coin]);
+        }
+        return $this->request("GET", "/v1/custody/staking_products/", $params);
     }
 
     /***
      * Stake
      * @param string $product_id
-     * @param string $amount
+     * @param BigInteger $amount
      * @return mixed|string
      * @throws Exception
      */
-    function stake(string $product_id, string $amount) {
-        $params=[
-            "product_id"=>$product_id,
-            "amount"=>$amount
+    function stake(string $product_id, BigInteger $amount)
+    {
+        $params = [
+            "product_id" => $product_id,
+            "amount" => $amount->toString()
         ];
-        return $this->request("POST","/v1/custody/staking_stake/",$params);
+        return $this->request("POST", "/v1/custody/staking_stake/", $params);
     }
 
     /***
      * unstake
      * @param string $product_id
-     * @param string $amount
+     * @param BigInteger $amount
      * @return mixed|string
      * @throws Exception
      */
-    function unstake(string $product_id, string $amount) {
-        $params=[
-            "product_id"=>$product_id,
-            "amount"=>$amount
+    function unstake(string $product_id, BigInteger $amount)
+    {
+        $params = [
+            "product_id" => $product_id,
+            "amount" => $amount->toString()
         ];
-        return $this->request("POST","/v1/custody/staking_unstake/",$params);
+        return $this->request("POST", "/v1/custody/staking_unstake/", $params);
     }
 
     /***
@@ -371,8 +386,9 @@ class CoboApiClient
      * @return mixed|string
      * @throws Exception
      */
-    function getStakingData(array $params=[]) {
-        return $this->request("GET","/v1/custody/stakings/",$params);
+    function getStakingData(array $params = [])
+    {
+        return $this->request("GET", "/v1/custody/stakings/", $params);
     }
 
     /***
@@ -381,8 +397,9 @@ class CoboApiClient
      * @return mixed|string
      * @throws Exception
      */
-    function getUnstakingData(string $coin=null) {
-        return $this->request("GET","/v1/custody/unstakings/",$coin?["coin"=>$coin]:[]);
+    function getUnstakingData(string $coin = null)
+    {
+        return $this->request("GET", "/v1/custody/unstakings/", $coin ? ["coin" => $coin] : []);
     }
 
     /***
@@ -390,11 +407,10 @@ class CoboApiClient
      * @return mixed|string
      * @throws Exception
      */
-    function getStakingHistory(array $params=[]) {
-        return $this->request("GET","/v1/custody/staking_history/",$params);
+    function getStakingHistory(array $params = [])
+    {
+        return $this->request("GET", "/v1/custody/staking_history/", $params);
     }
-
-
 
 
 }
