@@ -408,7 +408,7 @@ class CoboApiClient
 
     /***
      * Get Unstaking Data
-     * @param array $params
+     * @param string|null $coin
      * @return mixed|string
      * @throws Exception
      */
