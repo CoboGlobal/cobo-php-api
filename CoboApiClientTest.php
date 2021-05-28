@@ -45,7 +45,7 @@ class CoboApiClientTest extends TestCase
      */
     public function testGetStakingHistory()
     {
-        $res = $this->client->getStakingHistory([]);
+        $res = $this->client->getStakingHistory();
         $this->assertTrue($res->success);
     }
 
@@ -102,7 +102,16 @@ class CoboApiClientTest extends TestCase
      */
     public function testCheckLoopAddressDetails()
     {
-        $res = $this->client->checkLoopAddressDetails("ETH", "0x05325e6f9d1f0437bd78a72c2ae084fbb8c039ee");
+        $res = $this->client->checkLoopAddressDetails("ETH", "0x6a33f1fb0ff76518fd7a92bdfff4eb62619639e5");
+        $this->assertTrue($res->success);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function testBatchCheckLoopAddressesDetails()
+    {
+        $res = $this->client->verifyLoopAddressList("ETH", "0xe7ebdc5bbb6c99cc8f7f2c1c83ff38aa6647f38a,0xe7ebdc5bbb6c99cc8f7f2c1c83ff38aa6647f38a");
         $this->assertTrue($res->success);
     }
 
@@ -168,14 +177,14 @@ class CoboApiClientTest extends TestCase
      */
     public function testGetStakingData()
     {
-        $res = $this->client->getStakingData([]);
+        $res = $this->client->getStakingData();
         $this->assertTrue($res->success);
     }
 
     /**
      * @throws Exception
      */
-    public function testVerifyLoopAddressList()
+    public function testBatchVerifyDepositAddresses()
     {
         $addresses = [
             "0x05325e6f9d1f0437bd78a72c2ae084fbb8c039ee",
@@ -184,7 +193,7 @@ class CoboApiClientTest extends TestCase
             "0xf3a4a281e92631cb06b53895b6db25c6ffcf7c3d"
         ];
 
-        $res = $this->client->verifyLoopAddressList("ETH", join(",", $addresses));
+        $res = $this->client->batchVerifyDepositAddresses("ETH", join(",", $addresses));
         $this->assertTrue($res->success);
     }
 
@@ -203,7 +212,7 @@ class CoboApiClientTest extends TestCase
      */
     public function testVerifyDepositAddress()
     {
-        $res = $this->client->verifyValidAddress("BTC", "3Qd8ZV4DWxMPK1HfitxccZXV2H8mCST3kM");
+        $res = $this->client->verifyDepositAddress("BTC", "3Qd8ZV4DWxMPK1HfitxccZXV2H8mCST3kM");
         $this->assertTrue($res->success);
     }
 
@@ -237,7 +246,6 @@ class CoboApiClientTest extends TestCase
     }
 
     /**
-     * @throws Exception
      */
     public function testGetCoinDetails()
     {

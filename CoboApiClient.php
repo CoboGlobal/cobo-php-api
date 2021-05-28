@@ -150,6 +150,21 @@ class CoboApiClient
     }
 
     /***
+     * @param string $coin
+     * @param string $addresses
+     * @return mixed
+     * @throws Exception
+     */
+    function batchVerifyDepositAddresses(string $coin, string $addresses)
+    {
+        $params = [
+            "coin" => $coin,
+            "address" => $addresses
+        ];
+        return $this->request("GET", "/v1/custody/addresses_info/", $params);
+    }
+
+    /***
      * Verify Valid Address
      * @param string $coin
      * @param string $address
