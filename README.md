@@ -1,47 +1,47 @@
 # Cobo php API
 
-cobo-java-api is a lightweight Java library for interacting with the [Cobo Custody API](https://doc.custody.cobo.com/?#cobo-custody-waas-api), providing complete API coverage.
+cobo-php-api is a lightweight php library for interacting with the [Cobo Custody API](https://doc.custody.cobo.com/?#cobo-custody-waas-api), providing complete API coverage.
 
 * [Installation](#installation)
-  * [Test](#test)
-  * [Usage](#usage)
-    * [Initialize](#initialize)
-      * [Initialize RestClient](#initialize-restclient)
-      * [Initialize ApiSigner](#initialize-apisigner)
-    * [Account](#account)
-      * [Check Account Details](#check-account-details)
-      * [Get Coin Details](#get-coin-details)
-      * [Get New Deposit Address](#get-new-deposit-address)
-      * [Batch Aet New Deposit Address](#batch-aet-new-deposit-address)
-      * [Verify Deposit Address](#verify-deposit-address)
-      * [Batch Verify Deposit Address](#batch-verify-deposit-address)
-      * [Verify Valid Address](#verify-valid-address)
-      * [Get Address History List](#get-address-history-list)
-    * [Loop Alliance](#loop-alliance)
-      * [Check Loop Address Details](#check-loop-address-details)
-      * [Verify Loop Address List](#verify-loop-address-list)
-      * [Loop Transaction Explorer](#loop-transaction-explorer)
-    * [Transactions](#transactions)
-      * [Get Transaction Details](#get-transaction-details)
-      * [Obtain the list of confirmed transactions through ID query(deposit&amp;withdraw)](#obtain-the-list-of-confirmed-transactions-through-id-querydepositwithdraw)
-      * [Obtain the list of confirmed transactions through time query(deposit&amp;withdraw)](#obtain-the-list-of-confirmed-transactions-through-time-querydepositwithdraw)
-      * [Get Pending Transactions](#get-pending-transactions)
-      * [Get Pending Deposit Details](#get-pending-deposit-details)
-      * [Get Transaction History](#get-transaction-history)
-    * [Withdrawal](#withdrawal)
-      * [Submit Withdraw Request](#submit-withdraw-request)
-      * [Get Withdraw Information](#get-withdraw-information)
-    * [Staking](#staking)
-      * [Get a Staking Product Details](#get-a-staking-product-details)
-      * [Get All Staking Product List](#get-all-staking-product-list)
-      * [Stake](#stake)
-      * [Unstake](#unstake)
-      * [Get Staking Data](#get-staking-data)
-      * [Get Unstaking Data](#get-unstaking-data)
-      * [Get All Staking History](#get-all-staking-history)
-    * [Trading](#trading)
-    * [Transaction Notification](#transaction-notification)
-    * [Withdrawal Confirmation](#withdrawal-confirmation)
+* [Test](#test)
+* [Usage](#usage)
+  * [Initialize](#initialize)
+    * [Initialize RestClient](#initialize-restclient)
+    * [Initialize ApiSigner](#initialize-apisigner)
+  * [Account](#account)
+    * [Check Account Details](#check-account-details)
+    * [Get Coin Details](#get-coin-details)
+    * [Get New Deposit Address](#get-new-deposit-address)
+    * [Batch New Deposit Address](#batch-new-deposit-address)
+    * [Verify Deposit Address](#verify-deposit-address)
+    * [Batch Verify Deposit Address](#batch-verify-deposit-address)
+    * [Verify Valid Address](#verify-valid-address)
+    * [Get Address History List](#get-address-history-list)
+  * [Loop Alliance](#loop-alliance)
+    * [Check Loop Address Details](#check-loop-address-details)
+    * [Verify Loop Address List](#verify-loop-address-list)
+    * [Loop Transaction Explorer](#loop-transaction-explorer)
+  * [Transactions](#transactions)
+    * [Get Transaction Details](#get-transaction-details)
+    * [Obtain the list of confirmed transactions through ID query(deposit&amp;withdraw)](#obtain-the-list-of-confirmed-transactions-through-id-querydepositwithdraw)
+    * [Obtain the list of confirmed transactions through time query(deposit&amp;withdraw)](#obtain-the-list-of-confirmed-transactions-through-time-querydepositwithdraw)
+    * [Get Pending Transactions](#get-pending-transactions)
+    * [Get Pending Deposit Details](#get-pending-deposit-details)
+    * [Get Transaction History](#get-transaction-history)
+  * [Withdrawal](#withdrawal)
+    * [Submit Withdraw Request](#submit-withdraw-request)
+    * [Get Withdraw Information](#get-withdraw-information)
+  * [Staking](#staking)
+    * [Get a Staking Product Details](#get-a-staking-product-details)
+    * [Get All Staking Product List](#get-all-staking-product-list)
+    * [Stake](#stake)
+    * [Unstake](#unstake)
+    * [Get Staking Data](#get-staking-data)
+    * [Get Unstaking Data](#get-unstaking-data)
+    * [Get All Staking History](#get-all-staking-history)
+  * [Trading](#trading)
+  * [Transaction Notification](#transaction-notification)
+  * [Withdrawal Confirmation](#withdrawal-confirmation)
 
 ## Installation
 
@@ -115,7 +115,7 @@ $client->newDepositAddress("BTC");
 ```
 </details>
 
-#### Batch Aet New Deposit Address
+#### Batch New Deposit Address
 ```php
 $client->batchNewDepositAddress("ETH", 4);
 ```
@@ -210,7 +210,7 @@ $client->verifyLoopAddressList("ETH", "0xe7ebdc5bbb6c99cc8f7f2c1c83ff38aa6647f38
 <summary>View Response</summary>
 
 
-```java
+```json
 {"success": true, "result": [{"coin": "ETH", "address": "0xe7ebdc5bbb6c99cc8f7f2c1c83ff38aa6647f38a", "is_internal_address": false}, {"coin": "ETH", "address": "0xe7ebdc5bbb6c99cc8f7f2c1c83ff38aa6647f38a", "is_internal_address": false}]}
 ```
 </details>
@@ -237,7 +237,7 @@ $client->getTransactionDetails("20210422193807000343569000002370");
 
 #### Obtain the list of confirmed transactions through ID query(deposit&withdraw)
 ```php
-client->getTransactionsById(["max_id"]=>"id*********")
+$client->getTransactionsById(["max_id"]=>"id*********")
 ```
 <details>
 <summary>View Response</summary>
@@ -374,7 +374,7 @@ $client->stake($product_id, new BigInteger("100000"));
 </details>
 
 #### Unstake
-```java
+```php
 $client->stake($product_id, new BigInteger("100000"));
 ```
 <details>
@@ -388,7 +388,7 @@ $client->stake($product_id, new BigInteger("100000"));
 
 #### Get Staking Data
 ```php
-client->getStakingData();
+$client->getStakingData();
 ```
 <details>
 <summary>View Response</summary>

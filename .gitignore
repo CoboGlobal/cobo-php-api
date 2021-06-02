@@ -7,3 +7,5 @@ vendor**
 .DS_Store
 .idea
 composer.phar
+.phpunit.result.cache
+phpunit.phar

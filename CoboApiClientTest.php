@@ -212,7 +212,7 @@ class CoboApiClientTest extends TestCase
      */
     public function testVerifyDepositAddress()
     {
-        $res = $this->client->verifyDepositAddress("BTC", "3Qd8ZV4DWxMPK1HfitxccZXV2H8mCST3kM");
+        $res = $this->client->verifyDepositAddress("BTC", "384rwCr8PHuQNTnKmThVFpyStUyfe6TjAb");
         $this->assertTrue($res->success);
     }
 
@@ -246,10 +246,11 @@ class CoboApiClientTest extends TestCase
     }
 
     /**
+     * @throws Exception
      */
     public function testGetCoinDetails()
     {
-        $res = $this->client->getCoinDetails("ETH");
+        $res = $this->client->getCoinDetails("TETH");
         $this->assertTrue($res->success);
 
     }
