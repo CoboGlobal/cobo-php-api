@@ -267,7 +267,11 @@ class CoboApiClientTest extends TestCase
         $this->assertFalse($res->result);
     }
 
-    function printdoc(string $desc,string $code, $res) {
-
-    }
+   public function testGenerateKeyPair()
+   {
+       $key = LocalSigner::generateKeyPair();
+       echo "apiSecret:", $key['apiSecret'],"\n";
+       echo "apiKey:", $key['apiKey'];
+       $this->assertTrue(true);
+   }
 }

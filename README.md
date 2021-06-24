@@ -6,6 +6,7 @@ cobo-php-api is a lightweight php library for interacting with the [Cobo Custody
 * [Test](#test)
 * [Usage](#usage)
   * [Initialize](#initialize)
+    * [Generate Key Pair](#generate-key-pair)
     * [Initialize RestClient](#initialize-restclient)
     * [Initialize ApiSigner](#initialize-apisigner)
   * [Account](#account)
@@ -59,6 +60,16 @@ cobo-php-api is a lightweight php library for interacting with the [Cobo Custody
 ## Usage
 
 ### Initialize
+
+#### Generate Key Pair
+
+
+```php
+require "LocalSigner.php";
+$key = LocalSigner::generateKeyPair();
+       echo "apiSecret:", $key['apiSecret'],"\n";
+       echo "apiKey:", $key['apiKey'];
+```
 
 #### Initialize RestClient
 
