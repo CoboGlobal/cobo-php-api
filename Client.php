@@ -1,41 +1,36 @@
 <?php
 
+namespace Cobo\Custody;
+
 use BI\BigInteger;
 use Elliptic\EC;
+use PHPUnit\Runner\Exception;
 
-require __DIR__ . "/vendor/autoload.php";
 
-class CoboApiClient
+class Client
 {
     private $apiSigner;
     private $apiKey;
     private $coboPub;
     private $host;
+    private $debug;
 
-    public function __construct(ApiSigner $apiSigner, string $apiKey, string $coboPub, string $host)
+    public function __construct(ApiSigner $apiSigner, array $config, bool $debug)
     {
-        $this->apiKey = $apiKey;
+        $this->apiKey = $apiSigner->getPublicKey();
         $this->apiSigner = $apiSigner;
-        $this->coboPub = $coboPub;
-        $this->host = $host;
+        $this->coboPub = $config['coboPub'];
+        $this->host = $config['host'];
+        $this->debug = $debug;
     }
 
-    function verifyEcdsa(string $message, string $timestamp, string $signature)
+    /***
+     * Check Account Details
+     * @return mixed|string
+     */
+    function getAccountInfo()
     {
-        $message = hash("sha256", hash("sha256", "{$message}|{$timestamp}", True), True);
-        $ec = new EC('secp256k1');
-        $key = $ec->keyFromPublic($this->coboPub, "hex");
-        return $key->verify(bin2hex($message), $signature);
-    }
-
-    private function sortData(array $data): string
-    {
-        ksort($data);
-        $result = [];
-        foreach ($data as $key => $val) {
-            array_push($result, $key . "=" . urlencode($val));
-        }
-        return join("&", $result);
+        return $this->request("GET", "/v1/custody/org_info/", []);
     }
 
     /**
@@ -56,6 +51,7 @@ class CoboApiClient
             "Biz-Api-Signature:" . $this->apiSigner->sign(join("|", [$method, $path, $nonce, $sorted_data]))
         ]);
 
+
         if ($method == "POST") {
             curl_setopt($ch, CURLOPT_URL, $this->host . $path);
             curl_setopt($ch, CURLOPT_POST, 1);
@@ -63,27 +59,45 @@ class CoboApiClient
         } else {
             curl_setopt($ch, CURLOPT_URL, $this->host . $path . "?" . $sorted_data);
         }
+        if ($this->debug) {
+            echo "request >>>>>>>>\n";
+            echo join("|", [$method, $path, $nonce, $sorted_data]), "\n";
+        }
+
         list($header, $body) = explode("\r\n\r\n", curl_exec($ch), 2);
         preg_match("/biz_timestamp: (?<timestamp>[0-9]*)/i", $header, $match);
         $timestamp = $match["timestamp"];
         preg_match("/biz_resp_signature: (?<signature>[0-9abcdef]*)/i", $header, $match);
         $signature = $match["signature"];
+
+        if ($this->debug) {
+            echo "response <<<<<<<<\n";
+            echo "$body|$timestamp", "\n";
+            echo "$signature", "\n";
+        }
         if ($this->verifyEcdsa($body, $timestamp, $signature) != 1) {
             throw new Exception("signature verify fail");
         }
         curl_close($ch);
-        echo $body;
         return json_decode($body);
     }
 
-    /***
-     * Check Account Details
-     * @return mixed|string
-     * @throws Exception
-     */
-    function getAccountInfo()
+    private function sortData(array $data): string
     {
-        return $this->request("GET", "/v1/custody/org_info/", []);
+        ksort($data);
+        $result = [];
+        foreach ($data as $key => $val) {
+            array_push($result, $key . "=" . urlencode($val));
+        }
+        return join("&", $result);
+    }
+
+    function verifyEcdsa(string $message, string $timestamp, string $signature): bool
+    {
+        $message = hash("sha256", hash("sha256", "$message|$timestamp", True), True);
+        $ec = new EC('secp256k1');
+        $key = $ec->keyFromPublic($this->coboPub, "hex");
+        return $key->verify(bin2hex($message), $signature);
     }
 
     /***
@@ -202,7 +216,7 @@ class CoboApiClient
      * @return mixed|string
      * @throws Exception
      */
-    function checkLoopAddressDetails(string $coin, string $address, string $memo=null)
+    function checkLoopAddressDetails(string $coin, string $address, string $memo = null)
     {
         $params = [
             "coin" => $coin,
@@ -342,7 +356,7 @@ class CoboApiClient
             "product_id" => $productId,
             "language" => $lang
         ];
-       return $this->request("GET", "/v1/custody/staking_product/", $params);
+        return $this->request("GET", "/v1/custody/staking_product/", $params);
     }
 
     /***
@@ -355,10 +369,10 @@ class CoboApiClient
     function getStakingProductList(string $coin = null, string $lang = "en")
     {
         $params = [
-            "language"=>$lang,
+            "language" => $lang,
         ];
         if ($coin) {
-            $params = array_merge($params,["coin"=>$coin]);
+            $params = array_merge($params, ["coin" => $coin]);
         }
         return $this->request("GET", "/v1/custody/staking_products/", $params);
     }
