@@ -1,26 +1,20 @@
 <?php
+require __DIR__ . "/vendor/autoload.php";
 
 use BI\BigInteger;
+use Cobo\Custody\Client;
+use Cobo\Custody\Config;
+use Cobo\Custody\LocalSigner;
 use PHPUnit\Framework\TestCase;
 
 require "LocalSigner.php";
-require "CoboApiClient.php";
+require "Client.php";
 require "Config.php";
 
-class CoboApiClientTest extends TestCase
+class ClientTest extends TestCase
 {
-    const apiKey = "0397ef0d81938bcf9587466ee33ab93caa77677416ada3297e70e92aa42245d99e";
     const apiSecret = "e7e73fabdd9edb8bddf947954c400a63bf93edc57abf170544ec570757df5453";
-    const coboPub = "032f45930f652d72e0c90f71869dfe9af7d713b1f67dc2f7cb51f9572778b9c876";
     private $client;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $signer = new LocalSigner(self::apiSecret);
-        $this->client = new CoboApiClient($signer, self::apiKey, self::coboPub, Config::HOST_SANDBOX);
-    }
-
 
     /**
      * @throws Exception
@@ -73,7 +67,7 @@ class CoboApiClientTest extends TestCase
     public function testWithdraw()
     {
         $res = $this->client->withdraw("TETH",
-            "request_id_" . time(),
+            "",
             "0xb744adc8d75e115eec8e582eb5e8d60eb0972037",
             new BigInteger("1"));
         $this->assertTrue($res->success);
@@ -267,11 +261,18 @@ class CoboApiClientTest extends TestCase
         $this->assertFalse($res->result);
     }
 
-   public function testGenerateKeyPair()
-   {
-       $key = LocalSigner::generateKeyPair();
-       echo "apiSecret:", $key['apiSecret'],"\n";
-       echo "apiKey:", $key['apiKey'];
-       $this->assertTrue(true);
-   }
+    public function testGenerateKeyPair()
+    {
+        $key = LocalSigner::generateKeyPair();
+        echo "apiSecret:", $key['apiSecret'], "\n";
+        echo "apiKey:", $key['apiKey'];
+        $this->assertTrue(true);
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $signer = new LocalSigner(self::apiSecret);
+        $this->client = new Client($signer, Config::SANDBOX, false);
+    }
 }
