@@ -1,6 +1,7 @@
 <?php
 
-require __DIR__ . "/vendor/autoload.php";
+namespace Cobo\Custody;
+
 
 use Elliptic\EC;
 
@@ -15,14 +16,6 @@ class LocalSigner implements ApiSigner
         $this->secretKey = $secretKey;
     }
 
-    public function sign($message)
-    {
-        $message = hash("sha256", hash("sha256", $message, True), True);
-        $ec = new EC('secp256k1');
-        $key = $ec->keyFromPrivate($this->secretKey);
-        return $key->sign(bin2hex($message))->toDER('hex');
-    }
-
     public static function generateKeyPair(): array
     {
         $ec = new EC('secp256k1');
@@ -32,5 +25,20 @@ class LocalSigner implements ApiSigner
             "apiKey" => $key->getPublic(true, 'hex')
         ];
 
+    }
+
+    public function sign($message): string
+    {
+        $message = hash("sha256", hash("sha256", $message, True), True);
+        $ec = new EC('secp256k1');
+        $key = $ec->keyFromPrivate($this->secretKey);
+        return $key->sign(bin2hex($message))->toDER('hex');
+    }
+
+    public function getPublicKey(): string
+    {
+        $ec = new EC('secp256k1');
+        $key = $ec->keyFromPrivate($this->secretKey);
+        return $key->getPublic(true, 'hex');
     }
 }
