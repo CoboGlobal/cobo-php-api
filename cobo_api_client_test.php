@@ -1,11 +1,14 @@
 <?php
-
+require __DIR__ . "/vendor/autoload.php";
 use BI\BigInteger;
+use Cobo\Custody\CoboApiClient;
+use Cobo\Custody\Config;
+use Cobo\Custody\LocalSigner;
 use PHPUnit\Framework\TestCase;
 
-require "LocalSigner.php";
-require "CoboApiClient.php";
-require "Config.php";
+require "local_signer.php";
+require "cobo_api_client.php";
+require "config.php";
 
 class CoboApiClientTest extends TestCase
 {
@@ -18,9 +21,8 @@ class CoboApiClientTest extends TestCase
     {
         parent::setUp();
         $signer = new LocalSigner(self::apiSecret);
-        $this->client = new CoboApiClient($signer, self::apiKey, self::coboPub, Config::HOST_SANDBOX);
+        $this->client = new CoboApiClient($signer, Config::SANDBOX, true);
     }
-
 
     /**
      * @throws Exception

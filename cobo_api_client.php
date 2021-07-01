@@ -1,9 +1,10 @@
 <?php
 
+namespace Cobo\Custody;
 use BI\BigInteger;
 use Elliptic\EC;
 
-require __DIR__ . "/vendor/autoload.php";
+
 
 class CoboApiClient
 {
@@ -11,16 +12,18 @@ class CoboApiClient
     private $apiKey;
     private $coboPub;
     private $host;
+    private $debug;
 
-    public function __construct(ApiSigner $apiSigner, string $apiKey, string $coboPub, string $host)
+    public function __construct(ApiSigner $apiSigner,array $config, bool $debug)
     {
-        $this->apiKey = $apiKey;
+        $this->apiKey = $apiSigner->getPublicKey();
         $this->apiSigner = $apiSigner;
-        $this->coboPub = $coboPub;
-        $this->host = $host;
+        $this->coboPub = $config['coboPub'];
+        $this->host = $config['host'];
+        $this->debug = $debug;
     }
 
-    function verifyEcdsa(string $message, string $timestamp, string $signature)
+    function verifyEcdsa(string $message, string $timestamp, string $signature):bool
     {
         $message = hash("sha256", hash("sha256", "{$message}|{$timestamp}", True), True);
         $ec = new EC('secp256k1');
@@ -56,6 +59,8 @@ class CoboApiClient
             "Biz-Api-Signature:" . $this->apiSigner->sign(join("|", [$method, $path, $nonce, $sorted_data]))
         ]);
 
+
+
         if ($method == "POST") {
             curl_setopt($ch, CURLOPT_URL, $this->host . $path);
             curl_setopt($ch, CURLOPT_POST, 1);
@@ -63,6 +68,14 @@ class CoboApiClient
         } else {
             curl_setopt($ch, CURLOPT_URL, $this->host . $path . "?" . $sorted_data);
         }
+        if ($this->debug) {
+            echo "request >>>>>>>>\n";
+            echo $method , "\n";
+            echo $path, "\n";
+            echo join("|", [$method, $path, $nonce, $sorted_data]),"\n";
+            echo $ch;
+        }
+
         list($header, $body) = explode("\r\n\r\n", curl_exec($ch), 2);
         preg_match("/biz_timestamp: (?<timestamp>[0-9]*)/i", $header, $match);
         $timestamp = $match["timestamp"];
