@@ -1,8 +1,24 @@
 {
+  "name": "cobo/cobo_custody",
+  "description": "Cobo Custody php sdk",
+  "type": "library",
   "require": {
     "php": ">=7.0",
     "simplito/elliptic-php": "1.0.6",
-    "ext-curl": "*"
+    "ext-curl": "*",
+    "ext-json": "*"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "minimum-stability": "stable"
+  },
+  "autoload": {
+    "classmap"  : [
+      "cobo_api_client.php",
+      "api_signer.php",
+      "local_signer.php",
+      "config.php"
+    ]
   },
   "require-dev": {
     "phpunit/phpunit": "~6"
