@@ -290,6 +290,17 @@ class Client
     }
 
     /***
+     * Get transactions by txid
+     * @param string $txid
+     * @return mixed|string
+     * @throws Exception
+     */
+    function getTransactionsByTxid(string $txid)
+    {
+        return $this->request("GET", "/v1/custody/transaction_by_txid/", ["txid" => $txid]);
+    }
+
+    /***
      * Get Pending Deposit Details
      * @param string $id
      * @return mixed|string
@@ -299,6 +310,7 @@ class Client
     {
         return $this->request("GET", "/v1/custody/pending_transaction/", ["id" => $id]);
     }
+    
 
     /***
      * Get Transaction History

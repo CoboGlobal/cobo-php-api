@@ -232,6 +232,16 @@ class ClientTest extends TestCase
     /**
      * @throws Exception
      */
+    public function testGetTransactionsByTxId()
+    {
+        $res = $this->client->getTransactionsByTxid("0x5d5396c3992ed524bf68a22a7ab6ae503f0349354ad69bc5204d5214085d4e9f");
+        $this->assertTrue($res->success);
+
+    }
+
+    /**
+     * @throws Exception
+     */
     public function testStake()
     {
         $products = $this->client->getStakingProductList("DASH");
