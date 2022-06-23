@@ -289,7 +289,7 @@ $client->getTransactionDetails("20210422193807000343569000002370");
 #### Get Transactions By Txid
 
 ```php
-$client->getTransactionsByTxid("d1aab71466d5a673ed3dabb4678b91f7e16d5923ac39f60da0400d18f2c3ccf0");
+$client->getTransactionsByTxid("0x5d5396c3992ed524bf68a22a7ab6ae503f0349354ad69bc5204d5214085d4e9f");
 ```
 
 <details>
