@@ -43,4 +43,4 @@ jobs:
     - name: Run test suite
       env:
         SECRET: "${{ github.event.inputs.environment == 'prod' && secrets.PRODSECRET || secrets.SANDBOXSECRET}}"
-      run: php -d env=${{ github.event.inputs.environment }} -d secret=$SECRET phpunit.phar ClientTest.php
+      run: php -denv=${{ github.event.inputs.environment }} -dsecret=$SECRET phpunit.phar ClientTest.php
