@@ -11,17 +11,29 @@ require "LocalSigner.php";
 require "Client.php";
 require "Config.php";
 
+$secret = get_cfg_var("secret");
+$env = get_cfg_var("env");
+
 class ClientTest extends TestCase
 {
-
-    const apiSecret = "";
     private $client;
 
     protected function setUp(): void
-    {
-        $signer = new LocalSigner(self::apiSecret);
-        $this->client = new Client($signer, Config::SANDBOX, true);
-        // $GLOBALS['opt']
+    {   
+        $signer = new LocalSigner($GLOBALS["secret"]);
+        if($GLOBALS['env'] == "sandbox"){
+            $env = Config::SANDBOX;
+            $this->data = Config::SANDBOX_DATA;
+        }
+        elseif($GLOBALS['env'] == "prod"){
+            $env = Config::PROD;
+            $this->data = Config::PROD_DATA;
+        }
+        else{
+            throw("Invalid env parameter.");
+        }
+        $signer = new LocalSigner($GLOBALS["secret"]);
+        $this->client = new Client($signer, $env, true);
     }
 
     /**
@@ -49,7 +61,6 @@ class ClientTest extends TestCase
     public function GetValidCoinDetailsProvider()
     {
         return array(
-            array("TETH"),
             array("BTC"),
             array("ETH_USDT"),
         );
@@ -150,20 +161,11 @@ class ClientTest extends TestCase
 
     /**
      * @throws Exception
-     * @dataProvider VerifyValidDepositAddress_Provider
      */
-    public function testVerifyValidDepositAddress($coin, $address)
+    public function testVerifyValidDepositAddress()
     {
-        $res = $this->client->verifyDepositAddress($coin, $address);
+        $res = $this->client->verifyDepositAddress("ETH", $this->data['deposit_address']);
         $this->assertTrue($res->success);
-    }
-
-    public function VerifyValidDepositAddress_Provider()
-    {
-        return array(
-            array("BTC", "384rwCr8PHuQNTnKmThVFpyStUyfe6TjAb"),
-            array("ETH", "0x05325e6f9d1f0437bd78a72c2ae084fbb8c039ee")
-        );
     }
 
     /**
@@ -351,7 +353,7 @@ class ClientTest extends TestCase
      */
     public function testGetTransactionDetails()
     {
-        $res = $this->client->getTransactionDetails("20210422193807000343569000002370");
+        $res = $this->client->getTransactionDetails($this->data['tx_id']);
         $this->assertTrue($res->success);
 
     }
@@ -388,11 +390,11 @@ class ClientTest extends TestCase
      */
     public function testGetPendingDepositDetails()
     {
-        $res = $this->client->getPendingDepositDetails();
+        $res = $this->client->getPendingTransactions([]);
         if(count($res->result)>0){
             $id = $res->result[0]->id;
             $res = $this->client->getPendingDepositDetails($id);
-            // $res = $this->client->getPendingDepositDetails("20200604171238000354106000006405");
+
             $this->assertTrue($res->success);
         }
         else{
@@ -436,7 +438,7 @@ class ClientTest extends TestCase
      */
     public function testGetWithdrawInfo()
     {
-        $res = $this->client->getWithdrawInfo("teth29374893624");
+        $res = $this->client->getWithdrawInfo($this->data["withdraw_id"]);
         $this->assertTrue($res->success);
     }
 
