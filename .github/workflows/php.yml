@@ -1,4 +1,4 @@
-name: PHP Composer
+name: PHP Unittest
 
 on:
   workflow_dispatch:
@@ -43,4 +43,4 @@ jobs:
     - name: Run test suite
       env:
         SECRET: "${{ github.event.inputs.environment == 'prod' && secrets.PRODSECRET || secrets.SANDBOXSECRET}}"
-      run: php -d secret=$SECRET -d env=${{ github.event.inputs.environment }} phpunit.phar ClientTest.php
+      run: php -d env=${{ github.event.inputs.environment }} -d secret=$SECRET phpunit.phar ClientTest.php
