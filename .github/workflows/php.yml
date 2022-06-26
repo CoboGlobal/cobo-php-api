@@ -1,22 +1,25 @@
 name: PHP Composer
 
 on:
+  workflow_dispatch:
+   inputs:
+      environment:
+        description: 'Environment to run tests against'
+        default: sandbox
+        type: choice
+        options:
+          - sandbox
+          - prod
   push:
-    branches: [ "main" ]
+   branches: [ main ]
   pull_request:
-    branches: [ "main" ]
-
-permissions:
-  contents: read
+   branches: [ main ]
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
-
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
 
@@ -26,14 +29,11 @@ jobs:
       with:
         path: vendor
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
-    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
-
-    # - name: Run test suite
-    #   run: composer run-script test
+    - name: Run test suite
+      env:
+        SECRET: "${{ github.event.inputs.environment == 'prod' && secrets.PRODSECRET || secrets.SANDBOXSECRET}}"
+      run: php -d secret=$SECRET -d env=${{ github.event.inputs.environment }} phpunit.phar ClientTest.php
