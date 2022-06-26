@@ -24,6 +24,8 @@ jobs:
       run: composer validate
     - name: Github Action for wget
       uses: wei/wget@v1.1.1
+      with:
+        args: -O sample.html https://httpbin.org/html
     - name: Cache Composer packages
       id: composer-cache
       uses: actions/cache@v3
