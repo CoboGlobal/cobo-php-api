@@ -415,20 +415,24 @@ class ClientTest extends TestCase
      * @throws Exception
      * @dataProvider Withdraw_Provider
      */
-    public function testWithdraw($coin, $request_id, $address)
+    public function testWithdraw($coin, $address, $memo)
     {
+        $time = time();
+        $addressHash = substr(hash("sha256", $address),0,8);
+        $requestId = "sdk_request_id_{$addressHash}_$time";
         $res = $this->client->withdraw($coin,
-            $request_id,
+            $requestId,
             $address,
-            new BigInteger("1"));
+            new BigInteger("1"),
+            ["memo" => $memo]);
         $this->assertTrue($res->success);
     }
 
     public function Withdraw_Provider()
     {
         return array(
-            array("COBO_ETH", "", "0xE410157345be56688F43FF0D9e4B2B38Ea8F7828"),
-            array("XLM", "4e73f03b", "GBJDU6TPWHKGV7HRLNTIBA46MG3MB5DUG6BISHX3BF7I75H2HLPV6RJX")
+            array("COBO_ETH", "0xE410157345be56688F43FF0D9e4B2B38Ea8F7828", ""),
+            array("XLM", "GBJDU6TPWHKGV7HRLNTIBA46MG3MB5DUG6BISHX3BF7I75H2HLPV6RJX", "4e73f03b")
         );
     }
 
@@ -466,7 +470,7 @@ class ClientTest extends TestCase
      */
     public function testGetTransactionsByTxId()
     {
-        $res = $this->client->getTransactionsByTxid("0x5d5396c3992ed524bf68a22a7ab6ae503f0349354ad69bc5204d5214085d4e9f");
+        $res = $this->client->getTransactionsByTxid($this->data["tx_id"]);
         $this->assertTrue($res->success);
 
     }
