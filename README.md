@@ -463,7 +463,7 @@ $client->stake($product_id, new BigInteger("100000"));
 #### Unstake
 
 ```php
-$client->stake($product_id, new BigInteger("100000"));
+$client->unstake($product_id, new BigInteger("100000"));
 ```
 
 <details>

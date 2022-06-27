@@ -1,0 +1,46 @@
+name: PHP Unittest
+
+on:
+  workflow_dispatch:
+   inputs:
+      environment:
+        description: 'Environment to run tests against'
+        default: sandbox
+        type: choice
+        options:
+          - sandbox
+          - prod
+  push:
+   branches: [ main ]
+  pull_request:
+   branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Validate composer.json and composer.lock
+      run: composer validate
+    - name: Github Action for wget
+      uses: wei/wget@v1.1.1
+      with:
+        args: -O sample.html https://httpbin.org/html
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        php-version: 7.4
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+
+    - name: Install dependencies
+      run: composer update --ignore-platform-reqs
+      
+    - name: Install phpunit.phar
+      run: wget https://phar.phpunit.de/phpunit.phar
+
+    - name: Run test suite
+      env:
+        SECRET: "${{ github.event.inputs.environment == 'prod' && secrets.PRODSECRET || secrets.SANDBOXSECRET}}"
+      run: php -denv=${{ github.event.inputs.environment }} -dsecret=$SECRET phpunit.phar ClientTest.php
