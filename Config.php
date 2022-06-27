@@ -15,15 +15,15 @@ class Config
     ];
 
     const SANDBOX_DATA = [
-        "tx_id" => "20210422193807000343569000002370",
-        "pending_tx_id" => "20200604171238000354106000006405",
-        "withdraw_id" => "teth29374893624",
-        "deposit_address" => "0x05325e6f9d1f0437bd78a72c2ae084fbb8c039ee",
+        "cobo_id" => "20220314181458000331767000003732",
+        "pending_id" => "20200604171238000354106000006405",
+        "withdraw_id" => "web_send_by_user_915_1647252768642",
+        "deposit_address" => "3JBYNrbB4bHtGWHTEa3ZPuRK9kwTiEUo4D",
     ];
     const PROD_DATA = [
-        "tx_id" => "20220311154108000184408000002833",
-        "pending_tx_id" => "20200604171238000354106000006405",
+        "cobo_id" => "20220311154108000184408000002833",
+        "pending_id" => "20200604171238000354106000006405",
         "withdraw_id" => "sdk_request_id_fe80cc5f_1647068483396",
-        "deposit_address" => "0xc2451931f8569a5887a35021ea46e83f70b5801b",
+        "deposit_address" => "36xYx7vf7DUKpJDixpY3EoV2jchFwYSNCb",
     ];
 }

@@ -33,7 +33,7 @@ class ClientTest extends TestCase
             throw("Invalid env parameter.");
         }
         $signer = new LocalSigner($GLOBALS["secret"]);
-        $this->client = new Client($signer, $env, true);
+        $this->client = new Client($signer, $env, false);
     }
 
     /**
@@ -164,7 +164,7 @@ class ClientTest extends TestCase
      */
     public function testVerifyValidDepositAddress()
     {
-        $res = $this->client->verifyDepositAddress("ETH", $this->data['deposit_address']);
+        $res = $this->client->verifyDepositAddress("BTC", $this->data['deposit_address']);
         $this->assertTrue($res->success);
     }
 
@@ -353,7 +353,7 @@ class ClientTest extends TestCase
      */
     public function testGetTransactionDetails()
     {
-        $res = $this->client->getTransactionDetails($this->data['tx_id']);
+        $res = $this->client->getTransactionDetails($this->data['cobo_id']);
         $this->assertTrue($res->success);
 
     }
@@ -415,11 +415,11 @@ class ClientTest extends TestCase
      * @throws Exception
      * @dataProvider Withdraw_Provider
      */
-    public function testWithdraw($coin, $address, $memo)
+    public function testWithdraw($coin, $request_id, $address)
     {
         $res = $this->client->withdraw($coin,
-            "",
-            $address, $memo,
+            $request_id,
+            $address,
             new BigInteger("1"));
         $this->assertTrue($res->success);
     }
@@ -427,8 +427,8 @@ class ClientTest extends TestCase
     public function Withdraw_Provider()
     {
         return array(
-            array("TETH", "0xb744adc8d75e115eec8e582eb5e8d60eb0972037", Null),
-            array("XRP", "rGNXLMNHkUEtoo7qkCSHEm2sfMo8F969oZ","2200701580")
+            array("COBO_ETH", "", "0xE410157345be56688F43FF0D9e4B2B38Ea8F7828"),
+            array("XLM", "4e73f03b", "GBJDU6TPWHKGV7HRLNTIBA46MG3MB5DUG6BISHX3BF7I75H2HLPV6RJX")
         );
     }
 
