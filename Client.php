@@ -4,6 +4,7 @@ namespace Cobo\Custody;
 
 use BI\BigInteger;
 use Elliptic\EC;
+use phpDocumentor\Reflection\Types\Null_;
 use PHPUnit\Runner\Exception;
 
 
@@ -200,10 +201,12 @@ class Client
      * @return mixed|string
      * @throws Exception
      */
-    function getAddressHistoryList(string $coin)
+    function getAddressHistoryList(string $coin, int $pageIndex = null , int $pageLength = null)
     {
         $params = [
-            "coin" => $coin
+            "coin" => $coin,
+            "page_index" => $pageIndex,
+            "page_length" => $pageLength
         ];
         return $this->request("GET", "/v1/custody/address_history/", $params);
     }
