@@ -18,6 +18,9 @@ class ClientTest extends TestCase
 {
     private $client;
 
+    /**
+     * @throws Exception
+     */
     protected function setUp(): void
     {   
         $signer = new LocalSigner($GLOBALS["secret"]);
@@ -30,7 +33,7 @@ class ClientTest extends TestCase
             $this->data = Config::PROD_DATA;
         }
         else{
-            throw("Invalid env parameter.");
+            throw new Exception("Invalid env parameter.");
         }
         $signer = new LocalSigner($GLOBALS["secret"]);
         $this->client = new Client($signer, $env, false);
@@ -293,7 +296,24 @@ class ClientTest extends TestCase
             array("BTC", 1)
         );
     }
+    /**
+     * @throws Exception
+     * @dataProvider GetValidAddressHistoryListWithPage_Provider
+     */
+    public function testGetValidAddressHistoryListWithPage($coin, $pageIndex, $pageLength)
+    {
+        $res = $this->client->getAddressHistoryList("ETH",0,2);
+        $this->assertTrue($res->success);
+        $this->assertEquals(sizeof($res->result), $pageLength);
 
+    }
+
+    public function GetValidAddressHistoryListWithPage_Provider()
+    {
+        return array(
+            array("ETH", 0, 2)
+        );
+    }
     /**
      * @throws Exception
      * @dataProvider GetInvalidAddressHistoryList_Provider
