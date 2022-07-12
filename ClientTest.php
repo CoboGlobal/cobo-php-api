@@ -296,6 +296,46 @@ class ClientTest extends TestCase
             array("BTC", 1)
         );
     }
+
+    /**
+     * @throws Exception
+     * @dataProvider GetValidAddressHistoryListWithValidPage_Provider
+     */
+    public function testGetValidAddressHistoryListWithValidPage($coin, $pageIndex, $pageLength)
+    {
+        $res = $this->client->getAddressHistoryList($coin, $pageIndex, $pageLength);
+        $this->assertTrue($res->success);
+        $this->assertEquals(sizeof($res->result), $pageLength);
+
+    }
+
+    public function GetValidAddressHistoryListWithValidPage_Provider()
+    {
+        return array(
+            array("ETH", 0, 2)
+        );
+    }
+
+    /**
+     * @throws Exception
+     * @dataProvider GetValidAddressHistoryListWithInvalidPage_Provider
+     */
+    public function testGetValidAddressHistoryListWithInvalidPage($coin, $pageIndex, $pageLength)
+    {
+        $res = $this->client->getAddressHistoryList($coin, $pageIndex, $pageLength);
+        $this->assertEquals($res->error_code, 1011);
+        $this->assertEquals($res->error_message, "Invalid page_length value");
+
+    }
+
+    public function GetValidAddressHistoryListWithInvalidPage_Provider()
+    {
+        return array(
+            array("ETH", 0, 51),
+            array("ETH", 0, 0)
+        );
+    }
+
     /**
      * @throws Exception
      * @dataProvider GetValidAddressHistoryListWithPage_Provider
