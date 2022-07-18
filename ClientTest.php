@@ -338,20 +338,20 @@ class ClientTest extends TestCase
 
     /**
      * @throws Exception
-     * @dataProvider GetValidAddressHistoryListWithPage_Provider
+     * @dataProvider GetAddressHistoryListWithPage_Provider
      */
-    public function testGetValidAddressHistoryListWithPage($coin, $pageIndex, $pageLength)
+    public function testGetAddressHistoryListWithPage($coin, $pageIndex, $pageLength, $sortFlag)
     {
-        $res = $this->client->getAddressHistoryList("ETH",0,2);
+        $res = $this->client->getAddressHistoryList($coin, $pageIndex, $pageLength, $sortFlag);
         $this->assertTrue($res->success);
         $this->assertEquals(sizeof($res->result), $pageLength);
 
     }
 
-    public function GetValidAddressHistoryListWithPage_Provider()
+    public function GetAddressHistoryListWithPage_Provider()
     {
         return array(
-            array("ETH", 0, 2)
+            array("ETH", 0, 2, 0)
         );
     }
     /**

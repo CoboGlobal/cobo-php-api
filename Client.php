@@ -1,4 +1,4 @@
-<?php
+Client.php<?php
 
 namespace Cobo\Custody;
 
@@ -197,15 +197,19 @@ class Client
     /***
      * Get Address History List
      * @param string $coin
+     * @pageIndex int start with 0 page
+     * @pageLength int page size <= 50
+     * @sortFlag int 0:DESCENDING 1:ASCENDING
      * @return mixed|string
      * @throws Exception
      */
-    function getAddressHistoryList(string $coin, int $pageIndex = null , int $pageLength = null)
+    function getAddressHistoryList(string $coin, int $pageIndex = null , int $pageLength = null, int $sortFlag = null)
     {
         $params = [
             "coin" => $coin,
             "page_index" => $pageIndex,
-            "page_length" => $pageLength
+            "page_length" => $pageLength,
+            "sort_flag" => $sortFlag
         ];
         return $this->request("GET", "/v1/custody/address_history/", $params);
     }
