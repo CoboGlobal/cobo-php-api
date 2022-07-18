@@ -1,4 +1,4 @@
-Client.php<?php
+<?php
 
 namespace Cobo\Custody;
 
