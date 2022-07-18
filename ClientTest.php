@@ -320,9 +320,9 @@ class ClientTest extends TestCase
      * @throws Exception
      * @dataProvider GetValidAddressHistoryListWithInvalidPage_Provider
      */
-    public function testGetValidAddressHistoryListWithInvalidPage($coin, $pageIndex, $pageLength)
+    public function testGetValidAddressHistoryListWithInvalidPage($coin, $pageIndex, $pageLength, $sortFlag)
     {
-        $res = $this->client->getAddressHistoryList($coin, $pageIndex, $pageLength);
+        $res = $this->client->getAddressHistoryList($coin, $pageIndex, $pageLength, $sortFlag);
         $this->assertEquals($res->error_code, 1011);
         $this->assertEquals($res->error_message, "Invalid page_length value");
 
@@ -331,8 +331,8 @@ class ClientTest extends TestCase
     public function GetValidAddressHistoryListWithInvalidPage_Provider()
     {
         return array(
-            array("ETH", 0, 51),
-            array("ETH", 0, 0)
+            array("ETH", 0, 51, 1),
+            array("ETH", 0, 0, 0)
         );
     }
 
@@ -351,7 +351,8 @@ class ClientTest extends TestCase
     public function GetAddressHistoryListWithPage_Provider()
     {
         return array(
-            array("ETH", 0, 2, 0)
+            array("ETH", 0, 2, 0),
+            array("ETH", 0, 2, 1)
         );
     }
     /**
