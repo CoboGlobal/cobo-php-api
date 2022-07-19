@@ -203,7 +203,7 @@ class Client
      * @return mixed|string
      * @throws Exception
      */
-    function getAddressHistoryList(string $coin, int $pageIndex = null , int $pageLength = null, int $sortFlag = 0)
+    function getAddressHistoryList(string $coin, int $pageIndex = null , int $pageLength = null, int $sortFlag = null)
     {
         $params = [
             "coin" => $coin,
