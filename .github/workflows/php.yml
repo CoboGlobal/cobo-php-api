@@ -44,4 +44,5 @@ jobs:
       env:
         ENV: "${{ github.event.inputs.environment == 'prod' && 'prod' || 'sandbox'}}"
         SECRET: "${{ github.event.inputs.environment == 'prod' && secrets.PRODSECRET || secrets.SANDBOXSECRET}}"
-      run: php -denv=$ENV -dsecret=$SECRET phpunit.phar ClientTest.php
+        MPCSECRET: "${{secrets.SANDBOXMPCSECRET}}"
+      run: php -denv=$ENV -dsecret=$SECRET -dMPCApiSecret=$MPCSECRET phpunit.phar ClientTest.php
