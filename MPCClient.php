@@ -480,13 +480,18 @@ class MPCClient
      * string $address
      * @return mixed|string
      */
-    function estimateFee(string $coin, BigInteger $amount, string $address)
+    function estimateFee(string $coin, BigInteger $amount, string $address, string $replaceCoboId)
     {
         $params = [
             "coin" => $coin,
             "amount" => $amount->toString(),
             "address" => $address,
         ];
+
+        if ($replaceCoboId) {
+            $params = array_merge($params, ["replace_cobo_id" => $replaceCoboId]);
+        }
+
         return $this->request("GET", "/v1/custody/mpc/estimate_fee/", $params);
     }
 
