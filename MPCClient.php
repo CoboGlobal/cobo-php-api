@@ -480,7 +480,7 @@ class MPCClient
      * string $address
      * @return mixed|string
      */
-    function estimateFee(string $coin, BigInteger $amount, string $address, string $replaceCoboId)
+    function estimateFee(string $coin, BigInteger $amount, string $address, string $replaceCoboId = null)
     {
         $params = [
             "coin" => $coin,
