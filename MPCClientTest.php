@@ -41,6 +41,13 @@ class MPCClientTest extends TestCase
         $this->assertTrue($res->success);
     }
 
+    public function testGetWalletSupportedCoins()
+    {
+        $res = $this->mpcClient->getWalletSupportedCoins();
+
+        $this->assertTrue($res->success);
+    }
+
     public function testIsValidAddress()
     {
         $coin = "GETH";

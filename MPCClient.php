@@ -114,6 +114,15 @@ class MPCClient
     }
 
     /***
+     * get wallet supported coins
+     * @return mixed|string
+     */
+    function getWalletSupportedCoins()
+    {
+        return $this->request("GET", "/v1/custody/mpc/get_wallet_supported_coins/", []);
+    }
+
+    /***
      * check valid address
      * @param string $coin
      * @param string $address
