@@ -489,7 +489,9 @@ class MPCClient
      * string $address
      * @return mixed|string
      */
-    function estimateFee(string $coin, BigInteger $amount, string $address, string $replaceCoboId = null)
+    function estimateFee(string $coin, BigInteger $amount, string $address, string $replaceCoboId = null, string $fromAddress = null,
+                        string $toAddressDetails = null, string $fee = null, BigInteger $gasPrice = null, BigInteger $gasLimit = null,
+                        string $extraParameters = null)
     {
         $params = [
             "coin" => $coin,
@@ -499,6 +501,24 @@ class MPCClient
 
         if ($replaceCoboId) {
             $params = array_merge($params, ["replace_cobo_id" => $replaceCoboId]);
+        }
+        if ($fromAddress) {
+            $params = array_merge($params, ["from_address" => $fromAddress]);
+        }
+        if ($toAddressDetails) {
+            $params = array_merge($params, ["to_address_details" => $toAddressDetails]);
+        }
+        if ($fee) {
+            $params = array_merge($params, ["fee" => $fee]);
+        }
+        if ($gasPrice) {
+            $params = array_merge($params, ["gas_price" => $gasPrice->toString()]);
+        }
+        if ($gasLimit) {
+            $params = array_merge($params, ["gas_limit" => $gasLimit->toString()]);
+        }
+        if ($extraParameters) {
+            $params = array_merge($params, ["extra_parameters" => $extraParameters]);
         }
 
         return $this->request("GET", "/v1/custody/mpc/estimate_fee/", $params);
