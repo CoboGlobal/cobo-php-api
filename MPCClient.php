@@ -265,7 +265,7 @@ class MPCClient
      * string $fromAddr
      * string $toAddr
      * string $toAddressDetails
-     * BigInteger $fee
+     * string $fee
      * BigInteger $gasPrice
      * BigInteger $gasLimit
      * int $operation
@@ -273,7 +273,7 @@ class MPCClient
      * @return mixed|string
      */
     function createTransaction(string     $coin, string $requestId, BigInteger $amount, string $fromAddr = null,
-                               string     $toAddr = null, string $toAddressDetails = null, BigInteger $fee = null,
+                               string     $toAddr = null, string $toAddressDetails = null, string $fee = null,
                                BigInteger $gasPrice = null, BigInteger $gasLimit = null, int $operation = null,
                                string     $extraParameters = null)
     {
@@ -293,7 +293,7 @@ class MPCClient
             $params = array_merge($params, ["to_address_details" => $toAddressDetails]);
         }
         if ($fee) {
-            $params = array_merge($params, ["fee" => $fee->toString()]);
+            $params = array_merge($params, ["fee" => $fee]);
         }
         if ($gasPrice) {
             $params = array_merge($params, ["gas_price" => $gasPrice->toString()]);
@@ -315,12 +315,12 @@ class MPCClient
      * drop transaction
      * string $coboId
      * string $requestId
-     * BigInteger $fee
+     * string $fee
      * BigInteger $gasPrice
      * BigInteger $gasLimit
      * @return mixed|string
      */
-    function dropTransaction(string     $coboId, string $requestId, BigInteger $fee = null, BigInteger $gasPrice = null,
+    function dropTransaction(string     $coboId, string $requestId, string $fee = null, BigInteger $gasPrice = null,
                              BigInteger $gasLimit = null)
     {
         $params = [
@@ -329,7 +329,7 @@ class MPCClient
         ];
 
         if ($fee) {
-            $params = array_merge($params, ["fee" => $fee->toString()]);
+            $params = array_merge($params, ["fee" => $fee]);
         }
         if ($gasPrice) {
             $params = array_merge($params, ["gas_price" => $gasPrice->toString()]);
@@ -345,12 +345,12 @@ class MPCClient
      * speedup transaction
      * string $coboId
      * string $requestId
-     * BigInteger $fee
+     * string $fee
      * BigInteger $gasPrice
      * BigInteger $gasLimit
      * @return mixed|string
      */
-    function speedupTransaction(string     $coboId, string $requestId, BigInteger $fee = null, BigInteger $gasPrice = null,
+    function speedupTransaction(string     $coboId, string $requestId, string $fee = null, BigInteger $gasPrice = null,
                                 BigInteger $gasLimit = null)
     {
         $params = [
@@ -359,7 +359,7 @@ class MPCClient
         ];
 
         if ($fee) {
-            $params = array_merge($params, ["fee" => $fee->toString()]);
+            $params = array_merge($params, ["fee" => $fee]);
         }
         if ($gasPrice) {
             $params = array_merge($params, ["gas_price" => $gasPrice->toString()]);
