@@ -272,17 +272,19 @@ class MPCClient
      * string $extraParameters
      * @return mixed|string
      */
-    function createTransaction(string     $coin, string $requestId, BigInteger $amount, string $fromAddr = null,
-                               string     $toAddr = null, string $toAddressDetails = null, string $fee = null,
+    function createTransaction(string     $coin, string $requestId, BigInteger $amount = null, string $fromAddr = null,
+                               string     $toAddr = null, string $toAddressDetails = null, BigInteger $fee = null,
                                BigInteger $gasPrice = null, BigInteger $gasLimit = null, int $operation = null,
                                string     $extraParameters = null)
     {
         $params = [
             "coin" => $coin,
             "request_id" => $requestId,
-            "amount" => $amount->toString(),
         ];
 
+        if ($amount){
+            $params = array_merge($params, ["amount" => $amount->toString()]);
+        }
         if ($fromAddr) {
             $params = array_merge($params, ["from_address" => $fromAddr]);
         }
