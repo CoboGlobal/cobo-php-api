@@ -495,10 +495,14 @@ class MPCClient
     {
         $params = [
             "coin" => $coin,
-            "amount" => $amount->toString(),
-            "address" => $address,
         ];
 
+        if ($amount) {
+            $params = array_merge($params, ["amount" => $amount->toString()]);
+        }
+        if ($address) {
+            $params = array_merge($params, ["address" => $address]);
+        }
         if ($replaceCoboId) {
             $params = array_merge($params, ["replace_cobo_id" => $replaceCoboId]);
         }
