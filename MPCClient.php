@@ -265,7 +265,7 @@ class MPCClient
      * string $fromAddr
      * string $toAddr
      * string $toAddressDetails
-     * BigInteger $fee
+     * string $fee
      * BigInteger $gasPrice
      * BigInteger $gasLimit
      * int $operation
@@ -295,7 +295,7 @@ class MPCClient
             $params = array_merge($params, ["to_address_details" => $toAddressDetails]);
         }
         if ($fee) {
-            $params = array_merge($params, ["fee" => $fee->toString()]);
+            $params = array_merge($params, ["fee" => $fee]);
         }
         if ($gasPrice) {
             $params = array_merge($params, ["gas_price" => $gasPrice->toString()]);
@@ -317,12 +317,12 @@ class MPCClient
      * drop transaction
      * string $coboId
      * string $requestId
-     * BigInteger $fee
+     * string $fee
      * BigInteger $gasPrice
      * BigInteger $gasLimit
      * @return mixed|string
      */
-    function dropTransaction(string     $coboId, string $requestId, BigInteger $fee = null, BigInteger $gasPrice = null,
+    function dropTransaction(string     $coboId, string $requestId, string $fee = null, BigInteger $gasPrice = null,
                              BigInteger $gasLimit = null)
     {
         $params = [
@@ -331,7 +331,7 @@ class MPCClient
         ];
 
         if ($fee) {
-            $params = array_merge($params, ["fee" => $fee->toString()]);
+            $params = array_merge($params, ["fee" => $fee]);
         }
         if ($gasPrice) {
             $params = array_merge($params, ["gas_price" => $gasPrice->toString()]);
@@ -347,12 +347,12 @@ class MPCClient
      * speedup transaction
      * string $coboId
      * string $requestId
-     * BigInteger $fee
+     * string $fee
      * BigInteger $gasPrice
      * BigInteger $gasLimit
      * @return mixed|string
      */
-    function speedupTransaction(string     $coboId, string $requestId, BigInteger $fee = null, BigInteger $gasPrice = null,
+    function speedupTransaction(string     $coboId, string $requestId, string $fee = null, BigInteger $gasPrice = null,
                                 BigInteger $gasLimit = null)
     {
         $params = [
@@ -361,7 +361,7 @@ class MPCClient
         ];
 
         if ($fee) {
-            $params = array_merge($params, ["fee" => $fee->toString()]);
+            $params = array_merge($params, ["fee" => $fee]);
         }
         if ($gasPrice) {
             $params = array_merge($params, ["gas_price" => $gasPrice->toString()]);
@@ -491,16 +491,40 @@ class MPCClient
      * string $address
      * @return mixed|string
      */
-    function estimateFee(string $coin, BigInteger $amount, string $address, string $replaceCoboId = null)
+    function estimateFee(string $coin, BigInteger $amount = null, string $address = null, string $replaceCoboId = null, string $fromAddress = null,
+                        string $toAddressDetails = null, string $fee = null, BigInteger $gasPrice = null, BigInteger $gasLimit = null,
+                        string $extraParameters = null)
     {
         $params = [
             "coin" => $coin,
-            "amount" => $amount->toString(),
-            "address" => $address,
         ];
 
+        if ($amount) {
+            $params = array_merge($params, ["amount" => $amount->toString()]);
+        }
+        if ($address) {
+            $params = array_merge($params, ["address" => $address]);
+        }
         if ($replaceCoboId) {
             $params = array_merge($params, ["replace_cobo_id" => $replaceCoboId]);
+        }
+        if ($fromAddress) {
+            $params = array_merge($params, ["from_address" => $fromAddress]);
+        }
+        if ($toAddressDetails) {
+            $params = array_merge($params, ["to_address_details" => $toAddressDetails]);
+        }
+        if ($fee) {
+            $params = array_merge($params, ["fee" => $fee]);
+        }
+        if ($gasPrice) {
+            $params = array_merge($params, ["gas_price" => $gasPrice->toString()]);
+        }
+        if ($gasLimit) {
+            $params = array_merge($params, ["gas_limit" => $gasLimit->toString()]);
+        }
+        if ($extraParameters) {
+            $params = array_merge($params, ["extra_parameters" => $extraParameters]);
         }
 
         return $this->request("GET", "/v1/custody/mpc/estimate_fee/", $params);
