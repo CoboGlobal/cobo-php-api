@@ -114,6 +114,19 @@ class MPCClient
     }
 
     /***
+     * get supported nft collections
+     * @param string $chainCode
+     * @return mixed|string
+     */
+    function getSupportedNftCollections(string $chainCode)
+    {
+        $params = [
+            "chain_code" => $chainCode,
+        ];
+        return $this->request("GET", "/v1/custody/mpc/get_supported_nft_collections/", $params);
+    }
+
+    /***
      * get wallet supported coins
      * @return mixed|string
      */
@@ -275,7 +288,7 @@ class MPCClient
     function createTransaction(string     $coin, string $requestId, BigInteger $amount = null, string $fromAddr = null,
                                string     $toAddr = null, string $toAddressDetails = null, BigInteger $fee = null,
                                BigInteger $gasPrice = null, BigInteger $gasLimit = null, int $operation = null,
-                               string     $extraParameters = null)
+                               string     $extraParameters = null, BigInteger $maxFee = null,  BigInteger $maxPriorityFee = null)
     {
         $params = [
             "coin" => $coin,
@@ -309,7 +322,36 @@ class MPCClient
         if ($extraParameters) {
             $params = array_merge($params, ["extra_parameters" => $extraParameters]);
         }
+        if ($maxFee) {
+            $params = array_merge($params, ["max_fee" => $maxFee]);
+        }
+        if ($maxPriorityFee) {
+            $params = array_merge($params, ["max_priority_fee" => $maxPriorityFee]);
+        }
 
+        return $this->request("POST", "/v1/custody/mpc/create_transaction/", $params);
+    }
+
+    /***
+     * sign message
+     * string $chainCode
+     * string $requestId
+     * string $fromAddr
+     * int $signVersion
+     * string $extraParameters
+     * @return mixed|string
+     */
+    function signMessage(string $chainCode, string $requestId, string $fromAddr,
+                        int $signVersion, string     $extraParameters)
+    {
+        $params = [
+            "chain_code" => $chainCode,
+            "request_id" => $requestId,
+            "from_address" => $fromAddr,
+            "sign_version" => $signVersion,
+            "extra_parameters" => $extraParameters,
+        ];
+        
         return $this->request("POST", "/v1/custody/mpc/create_transaction/", $params);
     }
 
