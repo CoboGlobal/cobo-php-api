@@ -31,7 +31,8 @@ class MPCClient
     {
         $ch = curl_init();
         $sorted_data = $this->sortData($data);
-        $nonce = time() * 1000;
+        list($microsecond, $second) = explode(' ', microtime());
+        $nonce = (float)sprintf('%.0f', (floatval($microsecond) + floatval($second)) * 1000);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HEADER, 1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
@@ -111,6 +112,19 @@ class MPCClient
             "chain_code" => $chainCode,
         ];
         return $this->request("GET", "/v1/custody/mpc/get_supported_coins/", $params);
+    }
+
+    /***
+     * get supported nft collections
+     * @param string $chainCode
+     * @return mixed|string
+     */
+    function getSupportedNftCollections(string $chainCode)
+    {
+        $params = [
+            "chain_code" => $chainCode,
+        ];
+        return $this->request("GET", "/v1/custody/mpc/get_supported_nft_collections/", $params);
     }
 
     /***
@@ -222,9 +236,10 @@ class MPCClient
      * string $pageIndex
      * string $pageLength
      * string $coin
+     * string $chainCode
      * @return mixed|string
      */
-    function listBalances(int $pageIndex, int $pageLength, string $coin = null)
+    function listBalances(int $pageIndex, int $pageLength, string $coin = null, string $chainCode = null)
     {
         $params = [
             "page_index" => $pageIndex,
@@ -233,6 +248,9 @@ class MPCClient
 
         if ($coin) {
             $params = array_merge($params, ["coin" => $coin]);
+        }
+        if ($chainCode) {
+            $params = array_merge($params, ["chain_code" => $chainCode]);
         }
 
         return $this->request("GET", "/v1/custody/mpc/list_balances/", $params);
@@ -275,7 +293,7 @@ class MPCClient
     function createTransaction(string     $coin, string $requestId, BigInteger $amount = null, string $fromAddr = null,
                                string     $toAddr = null, string $toAddressDetails = null, BigInteger $fee = null,
                                BigInteger $gasPrice = null, BigInteger $gasLimit = null, int $operation = null,
-                               string     $extraParameters = null)
+                               string     $extraParameters = null, BigInteger $maxFee = null,  BigInteger $maxPriorityFee = null)
     {
         $params = [
             "coin" => $coin,
@@ -309,7 +327,36 @@ class MPCClient
         if ($extraParameters) {
             $params = array_merge($params, ["extra_parameters" => $extraParameters]);
         }
+        if ($maxFee) {
+            $params = array_merge($params, ["max_fee" => $maxFee]);
+        }
+        if ($maxPriorityFee) {
+            $params = array_merge($params, ["max_priority_fee" => $maxPriorityFee]);
+        }
 
+        return $this->request("POST", "/v1/custody/mpc/create_transaction/", $params);
+    }
+
+    /***
+     * sign message
+     * string $chainCode
+     * string $requestId
+     * string $fromAddr
+     * int $signVersion
+     * string $extraParameters
+     * @return mixed|string
+     */
+    function signMessage(string $chainCode, string $requestId, string $fromAddr,
+                        int $signVersion, string     $extraParameters)
+    {
+        $params = [
+            "chain_code" => $chainCode,
+            "request_id" => $requestId,
+            "from_address" => $fromAddr,
+            "sign_version" => $signVersion,
+            "extra_parameters" => $extraParameters,
+        ];
+        
         return $this->request("POST", "/v1/custody/mpc/create_transaction/", $params);
     }
 
