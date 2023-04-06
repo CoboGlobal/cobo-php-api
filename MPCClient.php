@@ -235,9 +235,10 @@ class MPCClient
      * string $pageIndex
      * string $pageLength
      * string $coin
+     * string $chainCode
      * @return mixed|string
      */
-    function listBalances(int $pageIndex, int $pageLength, string $coin = null)
+    function listBalances(int $pageIndex, int $pageLength, string $coin = null, string $chainCode = null)
     {
         $params = [
             "page_index" => $pageIndex,
@@ -246,6 +247,9 @@ class MPCClient
 
         if ($coin) {
             $params = array_merge($params, ["coin" => $coin]);
+        }
+        if ($chainCode) {
+            $params = array_merge($params, ["chain_code" => $chainCode]);
         }
 
         return $this->request("GET", "/v1/custody/mpc/list_balances/", $params);
