@@ -40,7 +40,8 @@ class Client
     {
         $ch = curl_init();
         $sorted_data = $this->sortData($data);
-        $nonce = time() * 1000;
+        list($microsecond, $second) = explode(' ', microtime());
+        $nonce = (float)sprintf('%.0f', (floatval($microsecond) + floatval($second)) * 1000);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HEADER, 1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
