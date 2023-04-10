@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [v0.2.10] (2022-04-10)
+[v0.2.10]: https://github.com/CoboCustody/cobo-php-api/compare/v0.2.9...v0.2.10
+
+### Added
+- Update request nonce. https://github.com/CoboCustody/cobo-php-api/pull/17
+
 ## [v0.2.9] (2022-03-13)
 [v0.2.9]: https://github.com/CoboCustody/cobo-php-api/compare/v0.2.8...v0.2.9
 
