@@ -53,7 +53,7 @@ add dependency in `composer.json`
 ``` json
 "require": {
     ...
-    "cobo/cobo_custody": "0.2.9",
+    "cobo/cobo_custody": "0.2.10",
   }
 ```
 
