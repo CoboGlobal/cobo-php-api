@@ -357,7 +357,7 @@ class MPCClient
             "extra_parameters" => $extraParameters,
         ];
         
-        return $this->request("POST", "/v1/custody/mpc/create_transaction/", $params);
+        return $this->request("POST", "/v1/custody/mpc/sign_message/", $params);
     }
 
     /***
