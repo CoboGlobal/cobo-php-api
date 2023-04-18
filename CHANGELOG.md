@@ -4,10 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [v0.2.11] (2023-04-10)
+## [v0.2.11] (2023-04-18)
 [v0.2.11]: https://github.com/CoboCustody/cobo-php-api/compare/v0.2.10...v0.2.11
 
-## [v0.2.10] (2032-04-10)
+### Added
+- Support MPC Web3 wallet SaaS api. https://github.com/CoboCustody/cobo-php-api/pull/16
+
+## [v0.2.10] (2023-04-10)
 [v0.2.10]: https://github.com/CoboCustody/cobo-php-api/compare/v0.2.9...v0.2.10
 
 ### Added
