@@ -329,13 +329,13 @@ class MPCClient
             $params = array_merge($params, ["extra_parameters" => $extraParameters]);
         }
         if ($maxFee) {
-            $params = array_merge($params, ["max_fee" => $maxFee]);
+            $params = array_merge($params, ["max_fee" => $maxFee->toString()]);
         }
         if ($maxPriorityFee) {
-            $params = array_merge($params, ["max_priority_fee" => $maxPriorityFee]);
+            $params = array_merge($params, ["max_priority_fee" => $maxPriorityFee->toString()]);
         }
         if ($feeAmount) {
-            $params = array_merge($params, ["fee_amount" => $feeAmount]);
+            $params = array_merge($params, ["fee_amount" => $feeAmount->toString()]);
         }
 
         return $this->request("POST", "/v1/custody/mpc/create_transaction/", $params);
