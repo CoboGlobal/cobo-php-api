@@ -293,7 +293,8 @@ class MPCClient
     function createTransaction(string     $coin, string $requestId, BigInteger $amount = null, string $fromAddr = null,
                                string     $toAddr = null, string $toAddressDetails = null, BigInteger $fee = null,
                                BigInteger $gasPrice = null, BigInteger $gasLimit = null, int $operation = null,
-                               string     $extraParameters = null, BigInteger $maxFee = null,  BigInteger $maxPriorityFee = null)
+                               string     $extraParameters = null, BigInteger $maxFee = null,  BigInteger $maxPriorityFee = null,
+                               BigInteger $feeAmount = null)
     {
         $params = [
             "coin" => $coin,
@@ -332,6 +333,9 @@ class MPCClient
         }
         if ($maxPriorityFee) {
             $params = array_merge($params, ["max_priority_fee" => $maxPriorityFee]);
+        }
+        if ($feeAmount) {
+            $params = array_merge($params, ["fee_amount" => $feeAmount]);
         }
 
         return $this->request("POST", "/v1/custody/mpc/create_transaction/", $params);
