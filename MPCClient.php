@@ -288,6 +288,7 @@ class MPCClient
      * BigInteger $gasLimit
      * int $operation
      * string $extraParameters
+     * BigInteger $feeAmount
      * @return mixed|string
      */
     function createTransaction(string     $coin, string $requestId, BigInteger $amount = null, string $fromAddr = null,
@@ -348,6 +349,7 @@ class MPCClient
      * string $fromAddr
      * int $signVersion
      * string $extraParameters
+     * BigInteger $feeAmount
      * @return mixed|string
      */
     function signMessage(string $chainCode, string $requestId, string $fromAddr,
@@ -371,10 +373,11 @@ class MPCClient
      * string $fee
      * BigInteger $gasPrice
      * BigInteger $gasLimit
+     * BigInteger $feeAmount
      * @return mixed|string
      */
     function dropTransaction(string     $coboId, string $requestId, string $fee = null, BigInteger $gasPrice = null,
-                             BigInteger $gasLimit = null)
+                             BigInteger $gasLimit = null, BigInteger $feeAmount = null)
     {
         $params = [
             "cobo_id" => $coboId,
@@ -389,6 +392,9 @@ class MPCClient
         }
         if ($gasLimit) {
             $params = array_merge($params, ["gas_limit" => $gasLimit->toString()]);
+        }
+        if ($feeAmount) {
+            $params = array_merge($params, ["fee_amount" => $feeAmount->toString()]);
         }
 
         return $this->request("POST", "/v1/custody/mpc/drop_transaction/", $params);
@@ -404,7 +410,7 @@ class MPCClient
      * @return mixed|string
      */
     function speedupTransaction(string     $coboId, string $requestId, string $fee = null, BigInteger $gasPrice = null,
-                                BigInteger $gasLimit = null)
+                                BigInteger $gasLimit = null, BigInteger $feeAmount = null)
     {
         $params = [
             "cobo_id" => $coboId,
@@ -419,6 +425,9 @@ class MPCClient
         }
         if ($gasLimit) {
             $params = array_merge($params, ["gas_limit" => $gasLimit->toString()]);
+        }
+        if ($feeAmount) {
+            $params = array_merge($params, ["fee_amount" => $feeAmount->toString()]);
         }
 
         return $this->request("POST", "/v1/custody/mpc/speedup_transaction/", $params);
