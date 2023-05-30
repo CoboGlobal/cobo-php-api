@@ -349,7 +349,6 @@ class MPCClient
      * string $fromAddr
      * int $signVersion
      * string $extraParameters
-     * BigInteger $feeAmount
      * @return mixed|string
      */
     function signMessage(string $chainCode, string $requestId, string $fromAddr,
@@ -407,6 +406,7 @@ class MPCClient
      * string $fee
      * BigInteger $gasPrice
      * BigInteger $gasLimit
+     * BigInteger $feeAmount
      * @return mixed|string
      */
     function speedupTransaction(string     $coboId, string $requestId, string $fee = null, BigInteger $gasPrice = null,
