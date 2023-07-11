@@ -33,4 +33,11 @@ class Config
         "withdraw_id" => "sdk_request_id_fe80cc5f_1647068483396",
         "deposit_address" => "36xYx7vf7DUKpJDixpY3EoV2jchFwYSNCb",
     ];
+    const DEVELOP_DATA = [
+        "cobo_id" => "20230628151437000131969000003448",
+        "tx_id" => "0xf0ffcd5f6420b2d31beedcaac7fe1e1b8e8b375afddd016924c4a9f64b7f67c4",
+        "pending_id" => "20230613161855000121785000007181",
+        "withdraw_id" => "web_send_by_user_1_1686644253387",
+        "deposit_address" => "0xc73af2ae6a973787ee2d92c0158200be181b0c4e",
+    ];
 }
