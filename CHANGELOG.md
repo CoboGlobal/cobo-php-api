@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [v0.2.13] (2023-07-20)
+[v0.2.13]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.12...v0.2.13
+
+### Added
+- Add API to list MPC TSS Node info. https://github.com/CoboGlobal/cobo-php-api/pull/27
+
 ## [v0.2.12] (2023-06-01)
 [v0.2.12]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.11...v0.2.12
 
