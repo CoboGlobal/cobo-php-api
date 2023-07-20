@@ -591,7 +591,7 @@ class MPCClient
     }
 
     /***
-     * estimate fee
+     * list tss node requests
      * int $requestType
      * int $status
      * string $address
@@ -608,5 +608,14 @@ class MPCClient
         }
 
         return $this->request("GET", "/v1/custody/mpc/list_tss_node_requests/", $params);
+    }
+
+    /***
+     * list tss node
+     * @return mixed|string
+     */
+    function listTssNode()
+    {
+        return $this->request("GET", "/v1/custody/mpc/list_tss_node/", []);
     }
 }

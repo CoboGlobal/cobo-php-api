@@ -158,4 +158,11 @@ class MPCClientTest extends TestCase
 
         $this->assertTrue($res->success);
     }
+
+    public function testListTssNode()
+    {
+        $res = $this->mpcClient->listTssNode();
+
+        $this->assertTrue($res->success);
+    }
 }
