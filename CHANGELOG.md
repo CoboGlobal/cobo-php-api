@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [v0.2.14] (2023-07-27)
+[v0.2.14]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.13...v0.2.14
+
+### Added
+- Add API to get result of signMessage. https://github.com/CoboGlobal/cobo-php-api/pull/29
+
 ## [v0.2.13] (2023-07-20)
 [v0.2.13]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.12...v0.2.13
 
