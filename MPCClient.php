@@ -618,4 +618,32 @@ class MPCClient
     {
         return $this->request("GET", "/v1/custody/mpc/list_tss_node/", []);
     }
+
+    /***
+     * sign messages by requestIds
+     * string $requestIds
+     * @return mixed|string
+     */
+    function signMessageByRequestIds(string $requestIds)
+    {
+        $params = [
+            "request_ids" => $requestIds,
+        ];
+
+        return $this->request("GET", "/v1/custody/mpc/sign_messages_by_request_ids/", $params);
+    }
+
+    /***
+     * sign messages by coboIds
+     * string $coboIds
+     * @return mixed|string
+     */
+    function signMessageByCoboIds(string $coboIds)
+    {
+        $params = [
+            "cobo_ids" => $coboIds,
+        ];
+
+        return $this->request("GET", "/v1/custody/mpc/sign_messages_by_cobo_ids/", $params);
+    }
 }
