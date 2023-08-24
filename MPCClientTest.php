@@ -20,8 +20,8 @@ class MPCClientTest extends TestCase
      */
     protected function setUp(): void
     {
-        $env = Config::SANDBOX;
-        $this->data = Config::SANDBOX_DATA;
+        $env = Config::DEVELOP;
+        $this->data = Config::DEVELOP_DATA;
         $signer = new LocalSigner($GLOBALS["MPCApiSecret"]);
         $this->mpcClient = new MPCClient($signer, $env, false);
     }

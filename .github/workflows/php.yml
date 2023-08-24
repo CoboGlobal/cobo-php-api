@@ -5,10 +5,10 @@ on:
    inputs:
       environment:
         description: 'Environment to run tests against'
-        default: sandbox
+        default: develop
         type: choice
         options:
-          - sandbox
+          - develop
           - prod
   push:
    branches: [ main ]
@@ -42,7 +42,7 @@ jobs:
 
     - name: Run test suite
       env:
-        ENV: "${{ github.event.inputs.environment == 'prod' && 'prod' || 'sandbox'}}"
-        SECRET: "${{ github.event.inputs.environment == 'prod' && secrets.PRODSECRET || secrets.SANDBOXSECRET}}"
-        MPCSECRET: "${{secrets.SANDBOXMPCSECRET}}"
+        ENV: "${{ github.event.inputs.environment == 'prod' && 'prod' || 'develop'}}"
+        SECRET: "${{ github.event.inputs.environment == 'prod' && secrets.PRODSECRET || secrets.DEVELOPSECRET}}"
+        MPCSECRET: "${{secrets.DEVELOPMPCSECRET}}"
       run: php -denv=$ENV -dsecret=$SECRET -dMPCApiSecret=$MPCSECRET phpunit.phar ClientTest.php

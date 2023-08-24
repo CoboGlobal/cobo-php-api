@@ -91,7 +91,7 @@ use Cobo\Custody\Config;
 use Cobo\Custody\LocalSigner;
 use Cobo\Custody\Client;
 
-$client = new Client($signer, Config::SANDBOX, false);
+$client = new Client($signer, Config::DEVELOP, false);
 ```
 
 #### Initialize ApiSigner

@@ -24,9 +24,9 @@ class ClientTest extends TestCase
     protected function setUp(): void
     {   
         $signer = new LocalSigner($GLOBALS["secret"]);
-        if($GLOBALS['env'] == "sandbox"){
-            $env = Config::SANDBOX;
-            $this->data = Config::SANDBOX_DATA;
+        if($GLOBALS['env'] == "develop"){
+            $env = Config::DEVELOP;
+            $this->data = Config::DEVELOP_DATA;
         }
         elseif($GLOBALS['env'] == "prod"){
             $env = Config::PROD;
