@@ -340,7 +340,7 @@ class Client
      * @return mixed|string
      * @throws Exception
      */
-    function withdraw(string $coin, string $requestId, string $address, BigInteger $amount, array $options = [])
+    function withdraw(string $coin, string $requestId, string $address, BigInteger $amount, array $options = [], string $remark = "")
     {
         if ($requestId == null || $requestId==""){
             $time = time();
@@ -353,6 +353,7 @@ class Client
             "request_id" => $requestId,
             "address" => $address,
             "amount" => $amount->toString(),
+            "remark" => $remark
         ], $options);
         return $this->request("POST", "/v1/custody/new_withdraw_request/", $params);
     }
