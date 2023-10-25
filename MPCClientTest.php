@@ -74,6 +74,16 @@ class MPCClientTest extends TestCase
         $this->assertTrue($res->success);
     }
 
+    public function testUpdateAddressDescription()
+    {
+        $coin = "GETH";
+        $address = "0x3ede1e59a3f3a66de4260df7ba3029b515337e5c";
+        $description = "test1";
+        $res = $this->mpcClient->updateAddressDescription($coin, $address, $description);
+
+        $this->assertTrue($res->success);
+    }
+
     public function testGetListAddresses()
     {
         $chainCode = "GETH";
