@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [v0.2.15] (2023-10-25)
+## [v0.2.15] (2023-10-26)
 [v0.2.15]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.14...v0.2.15
 
 ### Changed
