@@ -180,6 +180,23 @@ class MPCClient
     }
 
     /***
+     * update address description
+     * string $coin
+     * string $address
+     * string $description
+     * @return mixed|string
+     */
+    function updateAddressDescription(string $coin, string $address, string $description)
+    {
+        $params = [
+            "coin" => $coin,
+            "address" => $address,
+            "description" => $description,
+        ];
+        return $this->request("POST", "/v1/custody/mpc/update_address_description/", $params);
+    }
+
+    /***
      * list addresses
      * string $chainCode
      * string $startId
