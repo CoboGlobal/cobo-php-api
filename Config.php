@@ -10,7 +10,7 @@ class Config
         "coboPub" => "02c3e5bacf436fbf4da78597e791579f022a2e85073ae36c54a361ff97f2811376"
     ];
 
-    const DEVELOP = [
+    const DEV = [
         "host" => "https://api.dev.cobo.com",
         "coboPub" => "03596da539963fb1dd29d5859e25903eb76b9f7ed2d58516e29c9f80c201ff2c1b"
     ];
@@ -22,7 +22,7 @@ class Config
         "withdraw_id" => "sdk_request_id_fe80cc5f_1647068483396",
         "deposit_address" => "36xYx7vf7DUKpJDixpY3EoV2jchFwYSNCb",
     ];
-    const DEVELOP_DATA = [
+    const DEV_DATA = [
         "cobo_id" => "20230628151437000131969000003448",
         "tx_id" => "0xf0ffcd5f6420b2d31beedcaac7fe1e1b8e8b375afddd016924c4a9f64b7f67c4",
         "pending_id" => "20230613161855000121785000007181",

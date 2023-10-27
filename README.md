@@ -53,7 +53,7 @@ add dependency in `composer.json`
 ``` json
 "require": {
     ...
-    "cobo/cobo_custody": "0.2.14",
+    "cobo/cobo_custody": "0.2.15",
   }
 ```
 
@@ -91,7 +91,7 @@ use Cobo\Custody\Config;
 use Cobo\Custody\LocalSigner;
 use Cobo\Custody\Client;
 
-$client = new Client($signer, Config::DEVELOP, false);
+$client = new Client($signer, Config::DEV, false);
 ```
 
 #### Initialize ApiSigner

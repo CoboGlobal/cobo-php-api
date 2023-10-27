@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [v0.2.15] (2023-10-26)
+[v0.2.15]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.14...v0.2.15
+
+### Added
+- Add New API: MPC Wallet add Update Address Description API.https://github.com/CoboGlobal/cobo-php-api/pull/36
+### Changed
+- Add New Params: Custodial Wallet New Withdraw Request and MPC Wallet Create Transaction API add remark param. https://github.com/CoboGlobal/cobo-php-api/pull/34
+
+
 ## [v0.2.14] (2023-07-27)
 [v0.2.14]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.13...v0.2.14
 

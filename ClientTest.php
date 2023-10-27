@@ -25,8 +25,8 @@ class ClientTest extends TestCase
     {   
         $signer = new LocalSigner($GLOBALS["secret"]);
         if($GLOBALS['env'] == "develop"){
-            $env = Config::DEVELOP;
-            $this->data = Config::DEVELOP_DATA;
+            $env = Config::DEV;
+            $this->data = Config::DEV_DATA;
         }
         elseif($GLOBALS['env'] == "prod"){
             $env = Config::PROD;
