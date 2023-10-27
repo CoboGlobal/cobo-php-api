@@ -17,7 +17,8 @@
       "Client.php",
       "ApiSigner.php",
       "LocalSigner.php",
-      "Config.php"
+      "Config.php",
+      "MPCClient.php"
     ]
   },
   "require-dev": {
