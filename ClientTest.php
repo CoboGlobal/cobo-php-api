@@ -440,6 +440,15 @@ class ClientTest extends TestCase
     /**
      * @throws Exception
      */
+    public function testGetTransactionsByTimeEx()
+    {
+        $res = $this->client->getTransactionsByTimeEx();
+        $this->assertTrue($res->success);
+    }
+
+    /**
+     * @throws Exception
+     */
     public function testGetPendingTransactions()
     {
         $res = $this->client->getPendingTransactions([]);
