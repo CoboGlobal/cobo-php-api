@@ -286,6 +286,17 @@ class Client
     }
 
     /***
+     * Get transactions by time ex
+     * @param array $params
+     * @return mixed|string
+     * @throws Exception
+     */
+    function getTransactionsByTimeEx(array $params = [])
+    {
+        return $this->request("GET", "/v1/custody/transactions_by_time_ex/", $params);
+    }
+
+    /***
      * Get Pending Transactions
      * @param array $params
      * @return mixed|string
