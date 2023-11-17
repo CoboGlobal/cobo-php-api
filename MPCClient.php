@@ -666,4 +666,18 @@ class MPCClient
 
         return $this->request("GET", "/v1/custody/mpc/sign_messages_by_cobo_ids/", $params);
     }
+
+    /***
+     * retry double check
+     * string $requestId
+     * @return mixed|string
+     */
+    function retryDoubleCheck(string $requestId)
+    {
+        $params = [
+            "request_id" => $requestId,
+        ];
+
+        return $this->request("POST", "/v1/custody/mpc/retry_double_check/", $params);
+    }
 }
