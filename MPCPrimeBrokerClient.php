@@ -102,7 +102,7 @@ class MPCPrimeBrokerClient
         $params = [
             "user_id" => $userId,
         ];
-        return $this->request("POST", "/v1/custody/auth/create_binding/", $params);
+        return $this->request("POST", "/v1/custody/guards/create_binding/", $params);
     }
 
     /***
@@ -115,7 +115,7 @@ class MPCPrimeBrokerClient
         $params = [
             "binder_id" => $binderId,
         ];
-        return $this->request("GET", "/v1/custody/auth/query_binding/", $params);
+        return $this->request("GET", "/v1/custody/guards/query_binding/", $params);
     }
     
     /***
@@ -128,7 +128,7 @@ class MPCPrimeBrokerClient
         $params = [
             "user_id" => $userId,
         ];
-        return $this->request("GET", "/v1/custody/auth/query_user_auth/", $params);
+        return $this->request("GET", "/v1/custody/guards/query_user_auth/", $params);
     }
 
     /***
@@ -143,7 +143,7 @@ class MPCPrimeBrokerClient
             "user_id" => $userId,
             "addresses" => $addresses,
         ];
-        return $this->request("POST", "/v1/custody/auth/bind_addresses/", $params);
+        return $this->request("POST", "/v1/custody/guards/bind_addresses/", $params);
     }
 
     /***
@@ -156,7 +156,7 @@ class MPCPrimeBrokerClient
         $params = [
             "user_id" => $userId,
         ];
-        return $this->request("POST", "/v1/custody/auth/change_binding/", $params);
+        return $this->request("POST", "/v1/custody/guards/change_binding/", $params);
     }
 
     /***
@@ -169,7 +169,7 @@ class MPCPrimeBrokerClient
         $params = [
             "user_id" => $userId,
         ];
-        return $this->request("POST", "/v1/custody/auth/unbind_binding/", $params);
+        return $this->request("POST", "/v1/custody/guards/unbind_binding/", $params);
     }
 
     /***
@@ -182,6 +182,6 @@ class MPCPrimeBrokerClient
         $params = [
             "statement_id" => $statementId,
         ];
-        return $this->request("GET", "/v1/custody/auth/query_statement/", $params);
+        return $this->request("GET", "/v1/custody/guards/query_statement/", $params);
     }
 }
