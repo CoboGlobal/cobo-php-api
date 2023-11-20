@@ -121,8 +121,7 @@ class Client
      */
     function getSupportedCoins()
     {
-        $params = [
-        ];
+        $params = [];
         return $this->request("GET", "/v1/custody/get_supported_coins/", $params);
     }
 
