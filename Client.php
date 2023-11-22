@@ -115,6 +115,17 @@ class Client
     }
 
     /***
+     * Get Support Coins
+     * @return mixed
+     * @throws Exception
+     */
+    function getSupportedCoins()
+    {
+        $params = [];
+        return $this->request("GET", "/v1/custody/get_supported_coins/", $params);
+    }
+
+    /***
      * Get New Deposit Address
      * @param string $coin
      * @param false $native_segwit
@@ -308,6 +319,17 @@ class Client
     }
 
     /***
+     * Get transactions by requestIds
+     * @param string $requestIds
+     * @return mixed|string
+     * @throws Exception
+     */
+    function getTransactionsByRequestid(string $requestIds)
+    {
+        return $this->request("GET", "/v1/custody/transactions_by_request_ids/", ["request_ids" => $requestIds]);
+    }
+
+    /***
      * Get transactions by txid
      * @param string $txid
      * @return mixed|string
@@ -477,6 +499,4 @@ class Client
     {
         return $this->request("GET", "/v1/custody/staking_history/", $params);
     }
-
-
 }
