@@ -15,7 +15,7 @@ To access the API documentation, navigate to
 the [API references](https://www.cobo.com/developers/api-references/overview/).
 
 For more information on Cobo's PHP SDK, refer to
-the [PHP SDK Guide](https://www.cobo.com/developers/get-started/sdks/waas/php).
+the [PHP SDK Guide](https://www.cobo.com/developers/sdks-and-tools/sdks/waas/php).
 
 ## Usage
 
