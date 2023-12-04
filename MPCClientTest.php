@@ -175,4 +175,13 @@ class MPCClientTest extends TestCase
 
         $this->assertTrue($res->success);
     }
+
+    public function testGetMaxSendAmount()
+    {
+        $coin = "GETH";
+        $to_address = "0xEEACb7a5e53600c144C0b9839A834bb4b39E540c";
+        $res = $this->mpcClient->getMaxSendAmount($coin, "0", $to_address);
+
+        $this->assertTrue($res->success);
+    }
 }
