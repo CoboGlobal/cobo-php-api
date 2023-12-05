@@ -680,4 +680,19 @@ class MPCClient
 
         return $this->request("POST", "/v1/custody/mpc/retry_double_check/", $params);
     }
+
+    function getMaxSendAmount(string $coin, string $fee_rate, string $to_address, string $from_address = null)
+    {
+        $params = [
+            "coin" => $coin,
+            "fee_rate" => $fee_rate,
+            "to_address" => $to_address
+        ];
+
+        if ($from_address) {
+            $params = array_merge($params, ["from_address" => $from_address]);
+        }
+
+        return $this->request("GET", "/v1/custody/mpc/get_max_send_amount/", $params);
+    }
 }
