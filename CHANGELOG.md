@@ -6,18 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [v0.2.19] (2023-12-07)
 [v0.2.19]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.18...v0.2.19
+
 ### Added
 - Add New API: Add get_max_send_amount API for MPC Wallet. https://github.com/CoboGlobal/cobo-php-api/pull/45
 
+
 ## [v0.2.18] (2023-11-22)
 [v0.2.18]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.17...v0.2.18
+
 ### Added
 - Add API for Primer Broker to facilitate MPC wallet integration with Cobo Guard. https://github.com/CoboGlobal/cobo-php-api/pull/41
 
+
 ## [v0.2.17] (2023-11-08)
 [v0.2.17]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.16...v0.2.17
+
 ### Added
 - Add New API: Add transactions_by_time_ex API for Custody Wallet. https://github.com/CoboGlobal/cobo-php-api/pull/39
+
 
 ## [v0.2.16] (2023-10-26)
 [v0.2.16]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.15...v0.2.16
@@ -40,11 +46,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 - Add API to get result of signMessage. https://github.com/CoboGlobal/cobo-php-api/pull/29
 
+
 ## [v0.2.13] (2023-07-20)
 [v0.2.13]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.12...v0.2.13
 
 ### Added
 - Add API to list MPC TSS Node info. https://github.com/CoboGlobal/cobo-php-api/pull/27
+
 
 ## [v0.2.12] (2023-06-01)
 [v0.2.12]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.11...v0.2.12
@@ -52,11 +60,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 - MPC create transaction and RBF API support param fee_amount for UTXO model. https://github.com/CoboGlobal/cobo-php-api/pull/22
 
+
 ## [v0.2.11] (2023-04-18)
 [v0.2.11]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.10...v0.2.11
 
 ### Added
 - Support MPC Web3 wallet SaaS api. https://github.com/CoboGlobal/cobo-php-api/pull/16
+
 
 ## [v0.2.10] (2023-04-10)
 [v0.2.10]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.9...v0.2.10
@@ -64,11 +74,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 - Update request nonce. https://github.com/CoboGlobal/cobo-php-api/pull/17
 
+
 ## [v0.2.9] (2023-03-13)
 [v0.2.9]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.8...v0.2.9
 
 ### Added
 - Update MPC wallet SaaS api. https://github.com/CoboGlobal/cobo-php-api/pull/13, https://github.com/CoboGlobal/cobo-php-api/pull/14
+
 
 ## [v0.2.8] (2023-02-16)
 [v0.2.8]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.7...v0.2.8
