@@ -4,15 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [v0.2.19] (2023-12-07)
+[v0.2.19]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.18...v0.2.19
+### Added
+- Add New API: Add get_max_send_amount API for MPC Wallet. https://github.com/CoboGlobal/cobo-php-api/pull/45
+
 ## [v0.2.18] (2023-11-22)
 [v0.2.18]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.17...v0.2.18
-
 ### Added
 - Add API for Primer Broker to facilitate MPC wallet integration with Cobo Guard. https://github.com/CoboGlobal/cobo-php-api/pull/41
 
 ## [v0.2.17] (2023-11-08)
 [v0.2.17]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.16...v0.2.17
-
 ### Added
 - Add New API: Add transactions_by_time_ex API for Custody Wallet. https://github.com/CoboGlobal/cobo-php-api/pull/39
 
