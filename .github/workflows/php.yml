@@ -38,7 +38,7 @@ jobs:
       run: composer update --ignore-platform-reqs
       
     - name: Install phpunit.phar
-      run: wget https://phar.phpunit.de/phpunit.phar
+      run: wget https://phar.phpunit.de/phpunit-9.6.phar
 
     - name: Run test suite
       env:
