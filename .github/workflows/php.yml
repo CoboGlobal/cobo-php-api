@@ -40,10 +40,17 @@ jobs:
     - name: Install phpunit.phar
       run: wget https://phar.phpunit.de/phpunit-9.6.phar
 
-    - name: Run test suite
+    - name: Run test suite for ClientTest
       env:
         ENV: "${{ github.event.inputs.environment == 'prod' && 'prod' || 'develop'}}"
         SECRET: "${{ github.event.inputs.environment == 'prod' && secrets.PRODSECRET || secrets.DEVELOPSECRET}}"
         MPCSECRET: "${{secrets.DEVELOPMPCSECRET}}"
       run: 
-        php -denv=$ENV -dsecret=$SECRET -dMPCApiSecret=$MPCSECRET phpunit-9.6.phar ClientTest.php MPCClientTest.php
+        php -denv=$ENV -dsecret=$SECRET phpunit-9.6.phar ClientTest.php
+    - name: Run test suite for MPCClientTest
+      env:
+        ENV: "${{ github.event.inputs.environment == 'prod' && 'prod' || 'develop'}}"
+        SECRET: "${{ github.event.inputs.environment == 'prod' && secrets.PRODSECRET || secrets.DEVELOPSECRET}}"
+        MPCSECRET: "${{secrets.DEVELOPMPCSECRET}}"
+      run: 
+        php -denv=$ENV -dMPCApiSecret=$MPCSECRET phpunit-9.6.phar MPCClientTest.php
