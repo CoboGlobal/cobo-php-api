@@ -40,7 +40,7 @@ The cobo_custody library can be conveniently installed using Composer.
 ```json
 {
   "require": {
-    "cobo/cobo_custody": "0.2.19"
+    "cobo/cobo_custody": "0.2.20"
   }
 }
 ```
