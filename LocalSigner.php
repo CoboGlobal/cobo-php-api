@@ -5,7 +5,7 @@ namespace Cobo\Custody;
 
 use Elliptic\EC;
 
-require "ApiSigner.php";
+require_once "ApiSigner.php";
 
 class LocalSigner implements ApiSigner
 {

@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . "/vendor/autoload.php";
+require_once __DIR__ . "/vendor/autoload.php";
 
 use BI\BigInteger;
 use Cobo\Custody\MPCClient;
@@ -7,9 +7,9 @@ use Cobo\Custody\Config;
 use Cobo\Custody\LocalSigner;
 use PHPUnit\Framework\TestCase;
 
-require "LocalSigner.php";
-require "MPCClient.php";
-require "Config.php";
+require_once "LocalSigner.php";
+require_once "MPCClient.php";
+require_once "Config.php";
 
 $MPCApiSecret = get_cfg_var("MPCApiSecret");
 $env = get_cfg_var("env");
