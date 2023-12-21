@@ -46,4 +46,4 @@ jobs:
         SECRET: "${{ github.event.inputs.environment == 'prod' && secrets.PRODSECRET || secrets.DEVELOPSECRET}}"
         MPCSECRET: "${{secrets.DEVELOPMPCSECRET}}"
       run: 
-        php -denv=$ENV -dsecret=$SECRET -dMPCApiSecret=$MPCSECRET phpunit.phar ClientTest.php MPCClientTest.php
+        php -denv=$ENV -dsecret=$SECRET -dMPCApiSecret=$MPCSECRET phpunit-10.5.3.phar ClientTest.php MPCClientTest.php
