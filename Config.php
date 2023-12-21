@@ -2,7 +2,6 @@
 
 namespace Cobo\Custody;
 
-
 class Config
 {
     const PROD = [
@@ -23,10 +22,10 @@ class Config
         "deposit_address" => "36xYx7vf7DUKpJDixpY3EoV2jchFwYSNCb",
     ];
     const DEV_DATA = [
-        "cobo_id" => "20230628151437000131969000003448",
-        "tx_id" => "0xf0ffcd5f6420b2d31beedcaac7fe1e1b8e8b375afddd016924c4a9f64b7f67c4",
+        "cobo_id" => "20231213152104000114035000006167",
+        "tx_id" => "332d0377c0cc08bc9f9d5b07320add949e30d8da0b5fea5140de63e3779101a0",
         "pending_id" => "20230613161855000121785000007181",
-        "withdraw_id" => "web_send_by_user_1_1686644253387",
-        "deposit_address" => "0xc73af2ae6a973787ee2d92c0158200be181b0c4e",
+        "withdraw_id" => "82ddd375-901a-4d0f-81a4-36d04fbc69a4",
+        "deposit_address" => "3HMVjbnkFqg6pD1cJ7PZeLsFkNGDh9Nqy2",
     ];
 }

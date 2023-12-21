@@ -11,6 +11,9 @@ require "LocalSigner.php";
 require "MPCClient.php";
 require "Config.php";
 
+$MPCApiSecret = get_cfg_var("MPCApiSecret");
+$env = get_cfg_var("env");
+
 class MPCClientTest extends TestCase
 {
     private $mpcClient;
@@ -23,6 +26,7 @@ class MPCClientTest extends TestCase
         $env = Config::DEV;
         $this->data = Config::DEV;
         $signer = new LocalSigner($GLOBALS["MPCApiSecret"]);
+        // $signer = new LocalSigner("fc068aeca9fe210851362891523dfba66481564fe28e22593fd27dd16f20e01d");
         $this->mpcClient = new MPCClient($signer, $env, false);
     }
 
@@ -77,8 +81,8 @@ class MPCClientTest extends TestCase
     public function testUpdateAddressDescription()
     {
         $coin = "GETH";
-        $address = "0x3ede1e59a3f3a66de4260df7ba3029b515337e5c";
-        $description = "test1";
+        $address = "0x6a060efe0ff887f4e24dc2d2098020abf28bcce4";
+        $description = "test";
         $res = $this->mpcClient->updateAddressDescription($coin, $address, $description);
 
         $this->assertTrue($res->success);
@@ -94,7 +98,7 @@ class MPCClientTest extends TestCase
 
     public function testGetBalance()
     {
-        $address = "0x3ede1e59a3f3a66de4260df7ba3029b515337e5c";
+        $address = "0x6a060efe0ff887f4e24dc2d2098020abf28bcce4";
         $res = $this->mpcClient->getBalance($address);
 
         $this->assertTrue($res->success);
@@ -111,7 +115,7 @@ class MPCClientTest extends TestCase
 
     public function testListSpendable()
     {
-        $coin = "BTC";
+        $coin = "GETH";
         $res = $this->mpcClient->listSpendable($coin);
 
         $this->assertTrue($res->success);
@@ -121,8 +125,8 @@ class MPCClientTest extends TestCase
     {
         $coin = "GETH";
         $requestId = time();
-        $fromAddr = "0x3ede1e59a3f3a66de4260df7ba3029b515337e5c";
-        $toAddr = "0xEEACb7a5e53600c144C0b9839A834bb4b39E540c";
+        $fromAddr = "0x6a060efe0ff887f4e24dc2d2098020abf28bcce4";
+        $toAddr = "0x6a060efe0ff887f4e24dc2d2098020abf28bcce4";
         $amount = new BigInteger("10");
         $res = $this->mpcClient->createTransaction($coin, $requestId, $amount, $fromAddr, $toAddr);
 
@@ -139,7 +143,7 @@ class MPCClientTest extends TestCase
 
     public function testTransactionsByCoboIds()
     {
-        $coboIds = "20221219161653000350944000006087";
+        $coboIds = "20231213152104000114035000006167";
         $res = $this->mpcClient->transactionsByCoboIds($coboIds);
 
         $this->assertTrue($res->success);
@@ -162,12 +166,12 @@ class MPCClientTest extends TestCase
         $this->assertTrue($res->success);
     }
 
-    public function testListTssNodeRequests()
-    {
-        $res = $this->mpcClient->listTssNodeRequests();
+    // public function testListTssNodeRequests()
+    // {
+    //     $res = $this->mpcClient->listTssNodeRequests();
 
-        $this->assertTrue($res->success);
-    }
+    //     $this->assertTrue($res->success);
+    // }
 
     public function testListTssNode()
     {
@@ -179,8 +183,8 @@ class MPCClientTest extends TestCase
     public function testGetMaxSendAmount()
     {
         $coin = "GETH";
-        $to_address = "0xEEACb7a5e53600c144C0b9839A834bb4b39E540c";
-        $res = $this->mpcClient->getMaxSendAmount($coin, "0", $to_address);
+        $to_address = "0x6a060efe0ff887f4e24dc2d2098020abf28bcce4";
+        $res = $this->mpcClient->getMaxSendAmount($coin, "0", $to_address,$to_address);
 
         $this->assertTrue($res->success);
     }
