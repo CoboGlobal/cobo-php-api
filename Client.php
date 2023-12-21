@@ -112,7 +112,7 @@ class Client
             "coin" => $coin
         ];
         if ($amount) {
-            $params = array_merge($params, ["$amount" => $amount->toString()]);
+            $params = array_merge($params, ["amount" => $amount->toString()]);
         } 
         return $this->request("GET", "/v1/custody/coin_info/", $params);
     }
