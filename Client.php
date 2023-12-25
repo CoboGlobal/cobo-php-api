@@ -502,4 +502,14 @@ class Client
     {
         return $this->request("GET", "/v1/custody/staking_history/", $params);
     }
+
+    /***
+     * @param array $params
+     * @return mixed|string
+     * @throws Exception
+     */
+    function getGasStationBalance(array $params = [])
+    {
+        return $this->request("GET", "/v1/custody/get_gas_station_balance/", $params);
+    }
 }
