@@ -312,7 +312,7 @@ class MPCClient
                                string     $toAddr = null, string $toAddressDetails = null, BigInteger $fee = null,
                                BigInteger $gasPrice = null, BigInteger $gasLimit = null, int $operation = null,
                                string     $extraParameters = null, BigInteger $maxFee = null,  BigInteger $maxPriorityFee = null,
-                               BigInteger $feeAmount = null, string $remark = null)
+                               BigInteger $feeAmount = null, string $remark = null, int $autoFuel = null)
     {
         $params = [
             "coin" => $coin,
@@ -358,6 +358,9 @@ class MPCClient
         if ($remark) {
             $params = array_merge($params, ["remark" => $remark]);
         }
+        if ($autoFuel) {
+            $params = array_merge($params, ["auto_fuel" => $autoFuel]);
+        }
 
         return $this->request("POST", "/v1/custody/mpc/create_transaction/", $params);
     }
@@ -396,7 +399,7 @@ class MPCClient
      * @return mixed|string
      */
     function dropTransaction(string     $coboId, string $requestId, string $fee = null, BigInteger $gasPrice = null,
-                             BigInteger $gasLimit = null, BigInteger $feeAmount = null)
+                             BigInteger $gasLimit = null, BigInteger $feeAmount = null, int $autoFuel = null)
     {
         $params = [
             "cobo_id" => $coboId,
@@ -414,6 +417,9 @@ class MPCClient
         }
         if ($feeAmount) {
             $params = array_merge($params, ["fee_amount" => $feeAmount->toString()]);
+        }
+        if ($autoFuel) {
+            $params = array_merge($params, ["auto_fuel" => $autoFuel]);
         }
 
         return $this->request("POST", "/v1/custody/mpc/drop_transaction/", $params);
@@ -430,7 +436,7 @@ class MPCClient
      * @return mixed|string
      */
     function speedupTransaction(string     $coboId, string $requestId, string $fee = null, BigInteger $gasPrice = null,
-                                BigInteger $gasLimit = null, BigInteger $feeAmount = null)
+                                BigInteger $gasLimit = null, BigInteger $feeAmount = null, int $autoFuel = null)
     {
         $params = [
             "cobo_id" => $coboId,
@@ -448,6 +454,9 @@ class MPCClient
         }
         if ($feeAmount) {
             $params = array_merge($params, ["fee_amount" => $feeAmount->toString()]);
+        }
+        if ($autoFuel) {
+            $params = array_merge($params, ["auto_fuel" => $autoFuel]);
         }
 
         return $this->request("POST", "/v1/custody/mpc/speedup_transaction/", $params);
