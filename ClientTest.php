@@ -609,6 +609,15 @@ class ClientTest extends TestCase
         $this->assertTrue($res->success);
     }
 
+    /**
+     * @throws Exception
+     */
+    public function testGetGasStationBalance()
+    {
+        $res = $this->client->getGasStationBalance();
+        $this->assertTrue($res->success);
+    }
+
     public function testGenerateKeyPair()
     {
         $key = LocalSigner::generateKeyPair();

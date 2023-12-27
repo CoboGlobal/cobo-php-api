@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [v0.2.21] (2023-12-27)
+[v0.2.21]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.20...v0.2.21
+
+### Added
+- Add New API: Add APIs for Gas Station. https://github.com/CoboGlobal/cobo-php-api/pull/50
+
+## [v0.2.20] (2023-12-21)
+[v0.2.20]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.19...v0.2.20
+
+### Added
+- Add New Params: Add parameter `amount` for API coin_info for Custodial Wallet. https://github.com/CoboGlobal/cobo-php-api/pull/47
+
 ## [v0.2.19] (2023-12-07)
 [v0.2.19]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.18...v0.2.19
 

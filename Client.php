@@ -106,11 +106,14 @@ class Client
      * @return mixed
      * @throws Exception
      */
-    function getCoinDetails(string $coin)
+    function getCoinDetails(string $coin, BigInteger $amount = null)
     {
         $params = [
             "coin" => $coin
         ];
+        if ($amount) {
+            $params = array_merge($params, ["amount" => $amount->toString()]);
+        } 
         return $this->request("GET", "/v1/custody/coin_info/", $params);
     }
 
@@ -498,5 +501,15 @@ class Client
     function getStakingHistory(array $params = [])
     {
         return $this->request("GET", "/v1/custody/staking_history/", $params);
+    }
+
+    /***
+     * @param array $params
+     * @return mixed|string
+     * @throws Exception
+     */
+    function getGasStationBalance(array $params = [])
+    {
+        return $this->request("GET", "/v1/custody/get_gas_station_balance/", $params);
     }
 }
