@@ -180,6 +180,23 @@ class MPCClient
     }
 
     /***
+     * generate address
+     * string $chainCode
+     * string $address
+     * int $count
+     * @return mixed|string
+     */
+    function generateAddressMemo(string $chainCode, string $address, int $count)
+    {
+        $params = [
+            "chain_code" => $chainCode,
+            "address" => $address,
+            "count" => $count,
+        ];
+        return $this->request("POST", "/v1/custody/mpc/generate_address_memo/", $params);
+    }
+
+    /***
      * update address description
      * string $coin
      * string $address
@@ -312,7 +329,7 @@ class MPCClient
         string $toAddr = null, string $toAddressDetails = null, BigInteger $fee = null,
         BigInteger $gasPrice = null, BigInteger $gasLimit = null, int $operation = null,
         string $extraParameters = null, BigInteger $maxFee = null, BigInteger $maxPriorityFee = null,
-        BigInteger $feeAmount = null, string $remark = null, int $autoFuel = null)
+        BigInteger $feeAmount = null, string $remark = null, int $autoFuel = null, string $memo = null)
     {
         $params = [
             "coin" => $coin,
@@ -360,6 +377,9 @@ class MPCClient
         }
         if ($autoFuel) {
             $params = array_merge($params, ["auto_fuel" => $autoFuel]);
+        }
+        if ($memo) {
+            $params = array_merge($params, ["memo" => $memo]);
         }
 
         return $this->request("POST", "/v1/custody/mpc/create_transaction/", $params);
