@@ -729,9 +729,9 @@ class MPCClient
      * lock spendable
      * string $coin
      * string $txHash
-     * string $voutN
+     * int $voutN
      */
-    function lockSpendable(string $coin, string $txHash, string $voutN)
+    function lockSpendable(string $coin, string $txHash, int $voutN)
     {
         $params = [
             "coin" => $coin,
@@ -746,9 +746,9 @@ class MPCClient
      * unlock spendable
      * string $coin
      * string $txHash
-     * string $voutN
+     * int $voutN
      */
-    function unlockSpendable(string $coin, string $txHash, string $voutN)
+    function unlockSpendable(string $coin, string $txHash, int $voutN)
     {
         $params = [
             "coin" => $coin,
@@ -763,9 +763,9 @@ class MPCClient
      * get rare satoshis
      * string $coin
      * string $txHash
-     * string $voutN
+     * int $voutN
      */
-    function getRareSatoshis(string $coin, string $txHash, string $voutN)
+    function getRareSatoshis(string $coin, string $txHash, int $voutN)
     {
         $params = [
             "coin" => $coin,
