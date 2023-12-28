@@ -32,7 +32,7 @@ class MPCClient
         $ch = curl_init();
         $sorted_data = $this->sortData($data);
         list($microsecond, $second) = explode(' ', microtime());
-        $nonce = (float)sprintf('%.0f', (floatval($microsecond) + floatval($second)) * 1000);
+        $nonce = (float) sprintf('%.0f', (floatval($microsecond) + floatval($second)) * 1000);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HEADER, 1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
@@ -180,6 +180,23 @@ class MPCClient
     }
 
     /***
+     * generate address
+     * string $chainCode
+     * string $address
+     * int $count
+     * @return mixed|string
+     */
+    function generateAddressMemo(string $chainCode, string $address, int $count)
+    {
+        $params = [
+            "chain_code" => $chainCode,
+            "address" => $address,
+            "count" => $count,
+        ];
+        return $this->request("POST", "/v1/custody/mpc/generate_address_memo/", $params);
+    }
+
+    /***
      * update address description
      * string $coin
      * string $address
@@ -308,18 +325,18 @@ class MPCClient
      * BigInteger $feeAmount
      * @return mixed|string
      */
-    function createTransaction(string     $coin, string $requestId, BigInteger $amount = null, string $fromAddr = null,
-                               string     $toAddr = null, string $toAddressDetails = null, BigInteger $fee = null,
-                               BigInteger $gasPrice = null, BigInteger $gasLimit = null, int $operation = null,
-                               string     $extraParameters = null, BigInteger $maxFee = null,  BigInteger $maxPriorityFee = null,
-                               BigInteger $feeAmount = null, string $remark = null, int $autoFuel = null)
+    function createTransaction(string $coin, string $requestId, BigInteger $amount = null, string $fromAddr = null,
+        string $toAddr = null, string $toAddressDetails = null, BigInteger $fee = null,
+        BigInteger $gasPrice = null, BigInteger $gasLimit = null, int $operation = null,
+        string $extraParameters = null, BigInteger $maxFee = null, BigInteger $maxPriorityFee = null,
+        BigInteger $feeAmount = null, string $remark = null, int $autoFuel = null, string $memo = null)
     {
         $params = [
             "coin" => $coin,
             "request_id" => $requestId,
         ];
 
-        if ($amount){
+        if ($amount) {
             $params = array_merge($params, ["amount" => $amount->toString()]);
         }
         if ($fromAddr) {
@@ -361,6 +378,9 @@ class MPCClient
         if ($autoFuel) {
             $params = array_merge($params, ["auto_fuel" => $autoFuel]);
         }
+        if ($memo) {
+            $params = array_merge($params, ["memo" => $memo]);
+        }
 
         return $this->request("POST", "/v1/custody/mpc/create_transaction/", $params);
     }
@@ -375,7 +395,7 @@ class MPCClient
      * @return mixed|string
      */
     function signMessage(string $chainCode, string $requestId, string $fromAddr,
-                        int $signVersion, string     $extraParameters)
+        int $signVersion, string $extraParameters)
     {
         $params = [
             "chain_code" => $chainCode,
@@ -384,7 +404,7 @@ class MPCClient
             "sign_version" => $signVersion,
             "extra_parameters" => $extraParameters,
         ];
-        
+
         return $this->request("POST", "/v1/custody/mpc/sign_message/", $params);
     }
 
@@ -398,8 +418,8 @@ class MPCClient
      * BigInteger $feeAmount
      * @return mixed|string
      */
-    function dropTransaction(string     $coboId, string $requestId, string $fee = null, BigInteger $gasPrice = null,
-                             BigInteger $gasLimit = null, BigInteger $feeAmount = null, int $autoFuel = null)
+    function dropTransaction(string $coboId, string $requestId, string $fee = null, BigInteger $gasPrice = null,
+        BigInteger $gasLimit = null, BigInteger $feeAmount = null, int $autoFuel = null)
     {
         $params = [
             "cobo_id" => $coboId,
@@ -435,8 +455,8 @@ class MPCClient
      * BigInteger $feeAmount
      * @return mixed|string
      */
-    function speedupTransaction(string     $coboId, string $requestId, string $fee = null, BigInteger $gasPrice = null,
-                                BigInteger $gasLimit = null, BigInteger $feeAmount = null, int $autoFuel = null)
+    function speedupTransaction(string $coboId, string $requestId, string $fee = null, BigInteger $gasPrice = null,
+        BigInteger $gasLimit = null, BigInteger $feeAmount = null, int $autoFuel = null)
     {
         $params = [
             "cobo_id" => $coboId,
@@ -534,9 +554,9 @@ class MPCClient
      * int $limit
      * @return mixed|string
      */
-    function listTransactions(int    $startTime = null, int $endTime = null, int $status = null, string $order = null,
-                              string $order_by = null, int $transactionType = null, string $coins = null, string $fromAddress = null,
-                              string $toAddress = null, int $limit = 50)
+    function listTransactions(int $startTime = null, int $endTime = null, int $status = null, string $order = null,
+        string $order_by = null, int $transactionType = null, string $coins = null, string $fromAddress = null,
+        string $toAddress = null, int $limit = 50)
     {
         $params = [
             "limit" => $limit,
@@ -581,8 +601,8 @@ class MPCClient
      * @return mixed|string
      */
     function estimateFee(string $coin, BigInteger $amount = null, string $address = null, string $replaceCoboId = null, string $fromAddress = null,
-                        string $toAddressDetails = null, string $fee = null, BigInteger $gasPrice = null, BigInteger $gasLimit = null,
-                        string $extraParameters = null)
+        string $toAddressDetails = null, string $fee = null, BigInteger $gasPrice = null, BigInteger $gasLimit = null,
+        string $extraParameters = null)
     {
         $params = [
             "coin" => $coin,
@@ -703,5 +723,56 @@ class MPCClient
         }
 
         return $this->request("GET", "/v1/custody/mpc/get_max_send_amount/", $params);
+    }
+
+    /***
+     * lock spendable
+     * string $coin
+     * string $txHash
+     * int $voutN
+     */
+    function lockSpendable(string $coin, string $txHash, int $voutN)
+    {
+        $params = [
+            "coin" => $coin,
+            "tx_hash" => $txHash,
+            "vout_n" => $voutN,
+        ];
+
+        return $this->request("POST", "/v1/custody/mpc/lock_spendable/", $params);
+    }
+
+    /***
+     * unlock spendable
+     * string $coin
+     * string $txHash
+     * int $voutN
+     */
+    function unlockSpendable(string $coin, string $txHash, int $voutN)
+    {
+        $params = [
+            "coin" => $coin,
+            "tx_hash" => $txHash,
+            "vout_n" => $voutN,
+        ];
+
+        return $this->request("POST", "/v1/custody/mpc/unlock_spendable/", $params);
+    }
+
+    /***
+     * get rare satoshis
+     * string $coin
+     * string $txHash
+     * int $voutN
+     */
+    function getRareSatoshis(string $coin, string $txHash, int $voutN)
+    {
+        $params = [
+            "coin" => $coin,
+            "tx_hash" => $txHash,
+            "vout_n" => $voutN,
+        ];
+
+        return $this->request("GET", "/v1/custody/mpc/get_rare_satoshis/", $params);
     }
 }
