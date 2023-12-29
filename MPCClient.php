@@ -137,6 +137,19 @@ class MPCClient
     }
 
     /***
+     * @param $coin String Coin code
+     * @return mixed
+     * @throws Exception
+     */
+    function getCoinDetails(string $coin)
+    {
+        $params = [
+            "coin" => $coin
+        ];
+        return $this->request("GET", "/v1/custody/mpc/coin_info/", $params);
+    }
+
+    /***
      * check valid address
      * @param string $coin
      * @param string $address
