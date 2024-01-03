@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [v0.2.22] (2023-12-28)
+[v0.2.22]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.21...v0.2.22
+
+### Added
+- Add New API: Add release satoshis API for MPC Wallet. https://github.com/CoboGlobal/cobo-php-api/pull/52
+
 ## [v0.2.21] (2023-12-27)
 [v0.2.21]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.20...v0.2.21
 
