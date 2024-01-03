@@ -493,7 +493,8 @@ class ClientTest extends TestCase
             $requestId,
             $address,
             new BigInteger("1"),
-            ["memo" => $memo]);
+            ["memo" => $memo],
+            "");
         $this->assertTrue($res->success);
     }
 
