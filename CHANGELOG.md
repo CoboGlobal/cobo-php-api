@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [v0.2.24] (2024-02-28)
+[v0.2.24]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.23...v0.2.24
+
+### Added
+- Add New Params: Add new parameter 'extra_parameters' for API mpc_speedup_transaction and mpc_drop_transaction. https://github.com/CoboGlobal/cobo-php-api/pull/59
+
 ## [v0.2.23] (2024-01-04)
 [v0.2.23]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.22...v0.2.23
 
