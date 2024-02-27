@@ -429,8 +429,8 @@ class MPCClient
      * BigInteger $gasPrice
      * BigInteger $gasLimit
      * BigInteger $feeAmount
-     * @return mixed|string
      * string $extraParameters
+     * @return mixed|string
      */
     function dropTransaction(string $coboId, string $requestId, string $fee = null, BigInteger $gasPrice = null,
         BigInteger $gasLimit = null, BigInteger $feeAmount = null, int $autoFuel = null, string $extraParameters = null)
@@ -470,8 +470,8 @@ class MPCClient
      * BigInteger $gasPrice
      * BigInteger $gasLimit
      * BigInteger $feeAmount
-     * @return mixed|string
      * string $extraParameters
+     * @return mixed|string
      */
     function speedupTransaction(string $coboId, string $requestId, string $fee = null, BigInteger $gasPrice = null,
         BigInteger $gasLimit = null, BigInteger $feeAmount = null, int $autoFuel = null, string $extraParameters = null)
