@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [v0.2.25] (2024-04-15)
+[v0.2.25]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.24...v0.2.25
+
+### Added
+- Add New API: Add get_utxo_assets and get_ordinals_inscription API for MPC Wallet. https://github.com/CoboGlobal/cobo-php-api/pull/61
+
 ## [v0.2.24] (2024-02-28)
 [v0.2.24]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.23...v0.2.24
 
