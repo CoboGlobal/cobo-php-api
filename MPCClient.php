@@ -796,4 +796,24 @@ class MPCClient
 
         return $this->request("GET", "/v1/custody/mpc/get_rare_satoshis/", $params);
     }
+
+    function getUTXOAssets(string $coin, string $txHash, int $voutN)
+    {
+        $params = [
+            "coin" => $coin,
+            "tx_hash" => $txHash,
+            "vout_n" => $voutN,
+        ];
+
+        return $this->request("GET", "/v1/custody/mpc/get_utxo_assets/", $params);
+    }
+
+    function getOrdinalsInscription(string $inscriptionId)
+    {
+        $params = [
+            "inscription_id" => $inscriptionId,
+        ];
+
+        return $this->request("GET", "/v1/custody/mpc/get_ordinals_inscription/", $params);
+    }
 }
