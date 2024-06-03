@@ -816,4 +816,62 @@ class MPCClient
 
         return $this->request("GET", "/v1/custody/mpc/get_ordinals_inscription/", $params);
     }
+
+    function babylonPrepareStaking(string $requestId, string $stakeInfo, string $feeRate, BigInteger $maxStakingFee = null)
+    {
+        $params = [
+            "request_id" => $requestId,
+            "stake_info" => $stakeInfo,
+            "fee_rate" => $feeRate,
+        ];
+
+        if ($maxStakingFee) {
+            $params = array_merge($params, ["max_staking_fee" => $maxStakingFee]);
+        }
+
+        return $this->request("POST", "/v1/custody/mpc/babylon/prepare_staking/", $params);
+    }
+
+    function babylonReplaceStakingFee(string $requestId, string $relatedRequestId, string $feeRate, BigInteger $maxStakingFee = null)
+    {
+        $params = [
+            "request_id" => $requestId,
+            "related_request_id" => $relatedRequestId,
+            "fee_rate" => $feeRate,
+        ];
+
+        if ($maxStakingFee) {
+            $params = array_merge($params, ["max_staking_fee" => $maxStakingFee]);
+        }
+
+        return $this->request("POST", "/v1/custody/mpc/babylon/replace_staking_fee/", $params);
+    }
+
+    function babylonBroadcastStakingTransaction(string $requestId)
+    {
+        $params = [
+            "request_id" => $requestId,
+        ];
+
+        return $this->request("POST", "/v1/custody/mpc/babylon/broadcast_staking_transaction/", $params);
+    }
+
+    function babylonGetStakingInfo(string $requestId)
+    {
+        $params = [
+            "request_id" => $requestId,
+        ];
+
+        return $this->request("GET", "/v1/custody/mpc/babylon/get_staking_info/", $params);
+    }
+
+    function babylonListWaitingBroadcastTransactions(string $coin, string $address)
+    {
+        $params = [
+            "asset_coin" => $coin,
+            "address" => $address,
+        ];
+
+        return $this->request("GET", "/v1/custody/mpc/babylon/list_waiting_broadcast_transactions/", $params);
+    }
 }
