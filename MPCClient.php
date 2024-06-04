@@ -183,12 +183,15 @@ class MPCClient
      * int $count
      * @return mixed|string
      */
-    function generateAddresses(string $chainCode, int $count)
+    function generateAddresses(string $chainCode, int $count, int $encoding = null)
     {
         $params = [
             "chain_code" => $chainCode,
             "count" => $count,
         ];
+        if ($encoding) {
+            $params = array_merge($params, ["encoding" => $encoding]);
+        }
         return $this->request("POST", "/v1/custody/mpc/generate_addresses/", $params);
     }
 
@@ -873,5 +876,14 @@ class MPCClient
         ];
 
         return $this->request("GET", "/v1/custody/mpc/babylon/list_waiting_broadcast_transactions/", $params);
+    }
+
+    function getApprovalDetails(string $requestId)
+    {
+        $params = [
+            "request_id" => $requestId,
+        ];
+
+        return $this->request("GET", "/v1/custody/mpc/get_approval_details/", $params);
     }
 }
