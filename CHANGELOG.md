@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [v0.2.27] (2024-06-04)
+[v0.2.27]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.26...v0.2.27
+
+### Added
+- Add New Params: Add new parameter `encoding` for API mpc_generate_addresses. https://github.com/CoboGlobal/cobo-php-api/pull/65
+
 ## [v0.2.26] (2024-06-03)
 [v0.2.26]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.25...v0.2.26
 
