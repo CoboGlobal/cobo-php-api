@@ -859,6 +859,15 @@ class MPCClient
         return $this->request("POST", "/v1/custody/mpc/babylon/broadcast_staking_transaction/", $params);
     }
 
+    function babylonBatchBroadcastStakingTransaction(array $requestIds)
+    {
+        $params = [
+            "request_ids" => join(",", $requestIds),
+        ];
+
+        return $this->request("POST", "/v1/custody/mpc/babylon/batch_broadcast_staking_transaction/", $params);
+    }
+
     function babylonGetStakingInfo(string $requestId)
     {
         $params = [
