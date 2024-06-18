@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [v0.2.28] (2024-06-18)
+[v0.2.28]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.27...v0.2.28
+
+### Added
+- Add New API: Add babylonBatchBroadcastStakingTransaction API for MPC Wallet. https://github.com/CoboGlobal/cobo-php-api/pull/67
+
 ## [v0.2.27] (2024-06-04)
 [v0.2.27]: https://github.com/CoboGlobal/cobo-php-api/compare/v0.2.26...v0.2.27
 
