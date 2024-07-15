@@ -887,6 +887,25 @@ class MPCClient
         return $this->request("GET", "/v1/custody/mpc/babylon/list_waiting_broadcast_transactions/", $params);
     }
 
+    function babylonListTransactionsByStatus(int $status, string $address = null, string $minCoboId = null, int $limit = null)
+    {
+        $params = [
+            "status" => $status,
+        ];
+
+        if ($address) {
+            $params = array_merge($params, ["address" => $address]);
+        }
+        if ($minCoboId) {
+            $params = array_merge($params, ["min_cobo_id" => $minCoboId]);
+        }
+        if ($limit) {
+            $params = array_merge($params, ["limit" => $limit]);
+        }
+
+        return $this->request("GET", "/v1/custody/mpc/babylon/list_transactions_by_status/", $params);
+    }
+
     function getApprovalDetails(string $requestId)
     {
         $params = [
