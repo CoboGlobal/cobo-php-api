@@ -512,4 +512,12 @@ class Client
     {
         return $this->request("GET", "/v1/custody/get_gas_station_balance/", $params);
     }
+
+    function addCoin(string $coin)
+    {
+        $params = [
+            "coin" => $coin,
+        ];
+        return $this->request("POST", "/v1/custody/add_coin/", $params);
+    }
 }
